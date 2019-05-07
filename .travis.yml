@@ -2,6 +2,9 @@ language: generic
 
 sudo: false
 
+before_install:
+  - chmod +x .travis/build-condition.sh
+
 matrix:
     include:
         - env: PROJECT=projects/backend
