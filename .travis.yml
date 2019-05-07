@@ -1,0 +1,11 @@
+language: generic
+
+sudo: false
+
+matrix:
+    include:
+        - env: PROJECT=projects/backend
+        - env: PROJECT=projects/frontend
+
+script: if .travis/build-condition.sh $TRAVIS_COMMIT_RANGE $PROJECT; then echo "$PROJECT is being built"; else echo "$PROJECT is NOT being built"; fi
+
