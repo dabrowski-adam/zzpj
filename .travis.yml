@@ -10,4 +10,4 @@ matrix:
         - env: PROJECT=projects/backend
         - env: PROJECT=projects/frontend
 
-script: if .travis/build-condition.sh $TRAVIS_COMMIT_RANGE $PROJECT; then echo "$PROJECT is being built"; else echo "$PROJECT is NOT being built (condition not met for commit range $TRAVIS_COMMIT_RANGE)"; fi
+script: if .travis/build-condition.sh $TRAVIS_COMMIT_RANGE $PROJECT; then chmod +x "projects/$PROJECT/.travis/build.sh"; projects/$PROJECT/.travis/build.sh; echo "$PROJECT is being built"; else echo "$PROJECT is NOT being built (condition not met for commit range $TRAVIS_COMMIT_RANGE)"; fi
