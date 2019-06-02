@@ -46,9 +46,10 @@ public class SubjectsController {
         return ResponseEntity.ok().build();
     }
 
-    @DeleteMapping("delete")
-    public String logout() {
-        return "Subject Delete Endpoint";
+    @GetMapping("{subjectId}")
+    public ResponseEntity getSubject(@PathVariable String subjectId) {
+        var subject = subjectService.get(subjectId);
+        return ResponseEntity.ok(subject);
     }
 
     @GetMapping("lectures")
