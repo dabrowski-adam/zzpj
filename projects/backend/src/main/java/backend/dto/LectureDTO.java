@@ -1,6 +1,5 @@
 package backend.dto;
 
-import backend.domain.Lecture;
 import lombok.Data;
 
 import java.io.Serializable;
