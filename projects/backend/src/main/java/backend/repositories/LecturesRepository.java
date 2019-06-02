@@ -11,13 +11,13 @@ import java.util.Optional;
 
 @Repository
 public interface LecturesRepository extends MongoRepository<Lecture, String> {
-    public Optional<Lecture> findById(String id);
-    public Lecture findByKey(String key);
-    public List<Lecture> findAllByPinAndOpenIsTrue(long pin);
-    public List<Lecture> findAllByLecturer(User user);
-    public List<Lecture> findAllBySubject(Subject subject);
-    public List<Lecture> findAll();
-    public Lecture insert(Lecture lecture);
-    public Lecture save(Lecture lecture);
-    public void deleteById(String id);
+    Optional<Lecture> findById(String id);
+    Lecture findByKey(String key);
+    List<Lecture> findAllByPinAndOpenIsTrue(long pin);
+    List<Lecture> findAllByLecturer(User user);
+    List<Lecture> findAllBySubject(Subject subject);
+    List<Lecture> findAll();
+    Lecture insert(Lecture lecture);
+    Lecture save(Lecture lecture);
+    void deleteById(String id);
 }
