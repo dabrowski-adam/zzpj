@@ -14,10 +14,19 @@ public class IndexController {
 
     @GetMapping("/")
     public ResponseEntity<Map> index() {
+        List<String> authors = List.of(
+                "Mateusz Bujnowicz",
+                "Adam Dąbrowski",
+                "Michał Grzelak",
+                "Kuba Mroczek",
+                "Paweł Skowroński"
+        );
+
         LectureDTO lectureDTO = new LectureDTO();
         SubjectDTO subjectDTO = new SubjectDTO();
 
         Map<String, Object> result = Map.of(
+                "authors", authors,
                 "lecture", lectureDTO,
                 "subject", subjectDTO
         );
