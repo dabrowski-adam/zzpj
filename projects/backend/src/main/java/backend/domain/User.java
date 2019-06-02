@@ -17,15 +17,15 @@ public class User {
     private String resetToken;
     private boolean resetPass;
     private LocalDateTime creationDate;
-    //TODO: Role as seperate type
-    private String role;
+    @DBRef
+    private Role role;
     //TODO: As separate type e.g Contact
     private String mail;
     private byte semester;
     @DBRef
     private Course course;
 
-    public User(String name, String surname, String password, String indexNumber, boolean isActive, String activationToken, String resetToken, boolean resetPass, LocalDateTime creationDate, String role, String mail, byte semester, Course course) {
+    public User(String name, String surname, String password, String indexNumber, boolean isActive, String activationToken, String resetToken, boolean resetPass, LocalDateTime creationDate, Role role, String mail, byte semester, Course course) {
         this.name = name;
         this.surname = surname;
         this.password = password;
