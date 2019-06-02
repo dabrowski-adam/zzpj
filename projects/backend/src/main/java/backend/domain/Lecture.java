@@ -1,25 +1,34 @@
 package backend.domain;
 
+import lombok.Data;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 
 import java.time.LocalDateTime;
 
+@Data
 public class Lecture {
-
     @Id
-    public String id;
+    private String id;
+    @DBRef
+    private Subject subject;
+    @DBRef
+    private User lecturer;
+    private LocalDateTime start;
+    private LocalDateTime end;
+    private String key;
+    private long pin;
+    private boolean isOpen;
+    private boolean isChecked;
 
-    //TODO: Add dependency on subject
-
-    public LocalDateTime start;
-
-    public LocalDateTime end;
-
-    //TODO: Add dependency on lecturer
-
-    long pin;
-
-    boolean open;
-
-    boolean checked;
+    public Lecture(Subject subject, User lecturer, LocalDateTime start, LocalDateTime end, String key, long pin, boolean isOpen, boolean isChecked) {
+        this.subject = subject;
+        this.lecturer = lecturer;
+        this.start = start;
+        this.end = end;
+        this.key = key;
+        this.pin = pin;
+        this.isOpen = isOpen;
+        this.isChecked = isChecked;
+    }
 }
