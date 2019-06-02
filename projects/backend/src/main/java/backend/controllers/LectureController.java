@@ -1,6 +1,5 @@
 package backend.controllers;
 
-import backend.domain.Lecture;
 import backend.dto.LectureDTO;
 import backend.service.LectureService;
 import org.modelmapper.ModelMapper;
