@@ -3,14 +3,13 @@ package backend.domain;
 import org.springframework.data.annotation.Id;
 
 public class Subject {
-
     @Id
-    public String id;
+    private String id;
+    private String topic;
+    private String key;
 
-    public String department;
-
-    long semester;
-
-
-
+    public Subject(String topic, String key) {
+        this.topic = topic;
+        this.key = key;
+    }
 }
