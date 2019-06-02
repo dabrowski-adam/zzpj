@@ -9,9 +9,9 @@ import java.util.Optional;
 
 @Repository
 public interface LecturesRepository extends MongoRepository<Lecture, String> {
-    public Optional<Lecture> findById(String id);
-    public List<Lecture> findAll();
-    public Lecture insert(Lecture lecture);
-    public Lecture save(Lecture lecture);
-    public void deleteById(String id);
+    Optional<Lecture> findById(String id);
+    List<Lecture> findAll();
+    Lecture insert(Lecture lecture);
+    Lecture save(Lecture lecture);
+    void deleteById(String id);
 }
