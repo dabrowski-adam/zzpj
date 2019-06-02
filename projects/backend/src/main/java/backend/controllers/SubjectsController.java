@@ -1,8 +1,11 @@
 package backend.controllers;
 
+import backend.domain.Subject;
+import backend.dto.SubjectDTO;
 import backend.service.SubjectService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -18,9 +21,12 @@ public class SubjectsController {
         this.modelMapper = modelMapper;
     }
 
+    // TODO: Add validation mechanism
     @PostMapping("add")
-    public String signup() {
-        return "Subject Add Endpoint";
+    public ResponseEntity addSubject(@RequestBody SubjectDTO subjectDTO) {
+        var subject = modelMapper.map(subjectDTO, Subject.class);
+        subjectService.add(subject);
+        return ResponseEntity.ok().build();
     }
 
     @PutMapping("edit")
