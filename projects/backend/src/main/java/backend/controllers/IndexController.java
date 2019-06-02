@@ -11,6 +11,6 @@ public class IndexController {
     @GetMapping("/")
     public ResponseEntity<LectureDTO> index() {
         LectureDTO result = new LectureDTO();
-        return ResponseEntity.ok(reslut);
+        return ResponseEntity.ok(result);
     }
 }
