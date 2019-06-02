@@ -1,5 +1,6 @@
 package backend.controllers;
 
+import backend.domain.Lecture;
 import backend.dto.LectureDTO;
 import backend.service.LectureService;
 import org.modelmapper.ModelMapper;
@@ -24,17 +25,17 @@ public class LectureController {
         this.modelMapper = modelMapper;
     }
 
-    @PostMapping("/add")
+    @PostMapping("add")
     public String signup() {
         return "Lecture Add Endpoint";
     }
 
-    @PutMapping("/edit")
+    @PutMapping("edit")
     public String login() {
         return "Lecture Edit Endpoint";
     }
 
-    @DeleteMapping("/delete")
+    @DeleteMapping("delete")
     public String logout() {
         return "Lecture Delete Endpoint";
     }
