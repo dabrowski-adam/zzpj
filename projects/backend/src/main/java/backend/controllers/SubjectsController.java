@@ -29,9 +29,14 @@ public class SubjectsController {
         return ResponseEntity.ok().build();
     }
 
-    @PutMapping("edit")
-    public String login() {
-        return "Subject Edit Endpoint";
+    // TODO: Add validation mechanism
+    @PutMapping("update/{subjectId}")
+    public ResponseEntity updateSubject(@PathVariable String subjectId, @RequestBody SubjectDTO subjectDTO) {
+        var subject = modelMapper.map(subjectDTO, Subject.class);
+        subject.setId(subjectId);
+        subjectService.update(subject);
+        return ResponseEntity.ok().build();
+    }
     }
 
     @DeleteMapping("delete")
