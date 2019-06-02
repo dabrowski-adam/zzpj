@@ -39,6 +39,9 @@ dependencies {
 
     compileOnly("org.projectlombok:lombok:1.18.8")
     annotationProcessor("org.projectlombok:lombok:1.18.8")
+
+    // https://mvnrepository.com/artifact/org.modelmapper/modelmapper
+    implementation("org.modelmapper:modelmapper:2.3.4")
 }
 
 application {

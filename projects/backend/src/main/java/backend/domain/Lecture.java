@@ -21,6 +21,9 @@ public class Lecture {
     private boolean isOpen;
     private boolean isChecked;
 
+    public Lecture() {
+    }
+
     public Lecture(Subject subject, User lecturer, LocalDateTime start, LocalDateTime end, String key, long pin, boolean isOpen, boolean isChecked) {
         this.subject = subject;
         this.lecturer = lecturer;
