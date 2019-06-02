@@ -42,9 +42,9 @@ public class LectureController {
 
     @GetMapping
     public ResponseEntity<List<LectureDTO>> getLectures() {
-        var results = lectureService.getLectures().stream()
+        var lectureDTOS = lectureService.getLectures().stream()
                 .map(x -> modelMapper.map(x, LectureDTO.class))
                 .collect(toList());
-        return ResponseEntity.ok(results);
+        return ResponseEntity.ok(lectureDTOS);
     }
 }
