@@ -10,7 +10,7 @@ public class IndexController {
 
     @GetMapping("/")
     public ResponseEntity<LectureDTO> index() {
-        LectureDTO reslut = new LectureDTO();
+        LectureDTO result = new LectureDTO();
         return ResponseEntity.ok(reslut);
     }
 }
