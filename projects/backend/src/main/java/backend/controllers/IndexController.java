@@ -1,5 +1,7 @@
 package backend.controllers;
 
+import backend.dto.LectureDTO;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -7,7 +9,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class IndexController {
 
     @GetMapping("/")
-    public String index() {
-        return "Hello!";
+    public ResponseEntity<LectureDTO> index() {
+        LectureDTO reslut = new LectureDTO();
+        return ResponseEntity.ok(reslut);
     }
 }

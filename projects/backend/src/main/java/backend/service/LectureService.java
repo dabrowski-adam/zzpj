@@ -8,13 +8,11 @@ import java.util.List;
 @Service
 public interface LectureService {
 
-    void signUp();
+    void update(Lecture lecture);
 
-    void login();
+    void add(Lecture lecture);
 
-    void logout();
-
-    void edit();
+    void delete(Lecture lecture);
 
     List<Lecture> getLectures();
 }

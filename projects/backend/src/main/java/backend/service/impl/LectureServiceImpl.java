@@ -6,8 +6,6 @@ import backend.service.LectureService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
-import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -21,23 +19,23 @@ public class LectureServiceImpl implements LectureService {
     }
 
     @Override
-    public void signUp() {
-
+    public void update(Lecture lecture) {
+        lecturesRepository.findById(lecture.getId()).
+                ifPresentOrElse(
+                        lecturesRepository::insert,
+                        () -> {}
+                );
     }
 
     @Override
-    public void login() {
-
+    public void add(Lecture lecture) {
+        //TODO: Add some feedback, how do we know that this had succeded?
+        lecturesRepository.insert(lecture);
     }
 
     @Override
-    public void logout() {
-
-    }
-
-    @Override
-    public void edit() {
-
+    public void delete(Lecture lecture) {
+        lecturesRepository.deleteById(lecture.getId());
     }
 
     @Override
