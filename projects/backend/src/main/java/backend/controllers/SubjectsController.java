@@ -37,6 +37,13 @@ public class SubjectsController {
         subjectService.update(subject);
         return ResponseEntity.ok().build();
     }
+
+    // TODO: Add validation mechanism
+    @DeleteMapping("delete/{subjectId}")
+    public ResponseEntity deleteSubject(@PathVariable String subjectId) {
+        var subject = subjectService.get(subjectId);
+        subjectService.delete(subject);
+        return ResponseEntity.ok().build();
     }
 
     @DeleteMapping("delete")
