@@ -3,23 +3,24 @@ package backend.controllers;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+@RequestMapping("subjects")
 public class SubjectsController {
-    @PostMapping("/subjects/add")
+    @PostMapping("add")
     public String signup() {
         return "Subject Add Endpoint";
     }
 
-    @PutMapping("/subjects/edit")
+    @PutMapping("edit")
     public String login() {
         return "Subject Edit Endpoint";
     }
 
-    @DeleteMapping("/subjects/delete")
+    @DeleteMapping("delete")
     public String logout() {
         return "Subject Delete Endpoint";
     }
 
-    @GetMapping("/subjects/lectures")
+    @GetMapping("lectures")
     public String edit() {
         return "Subjects List Endpoint";
     }
