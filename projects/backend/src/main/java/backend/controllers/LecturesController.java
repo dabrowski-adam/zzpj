@@ -1,10 +1,19 @@
 package backend.controllers;
 
+import backend.repositories.LecturesRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("lectures")
 public class LecturesController {
+    private LecturesRepository lecturesRepository;
+
+    @Autowired
+    public LecturesController(LecturesRepository lecturesRepository) {
+        this.lecturesRepository = lecturesRepository;
+    }
+
     @PostMapping("add")
     public String signup() {
         return "Lecture Add Endpoint";
