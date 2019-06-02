@@ -1,10 +1,30 @@
 package backend.controllers;
 
+import backend.domain.Lecture;
+import backend.dto.LectureDTO;
+import backend.service.LectureService;
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+import static java.util.stream.Collectors.toList;
 
 @RestController
 @RequestMapping("/lectures")
 public class LectureController {
+
+    private final LectureService lectureService;
+    private final ModelMapper modelMapper;
+
+    @Autowired
+    public LectureController(LectureService lectureService, ModelMapper modelMapper) {
+        this.lectureService = lectureService;
+        this.modelMapper = modelMapper;
+    }
+
     @PostMapping("/add")
     public String signup() {
         return "Lecture Add Endpoint";
@@ -21,7 +41,10 @@ public class LectureController {
     }
 
     @GetMapping
-    public String getLectures() {
-        return "Lectures List Endpoint";
+    public ResponseEntity<List<LectureDTO>> getLectures() {
+        var results = lectureService.getLectures().stream()
+                .map(x -> modelMapper.map(x, LectureDTO.class))
+                .collect(toList());
+        return ResponseEntity.ok(results);
     }
 }
