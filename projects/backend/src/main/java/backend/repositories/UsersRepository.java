@@ -1,6 +1,5 @@
 package backend.repositories;
 
-import backend.domain.Subject;
 import backend.domain.User;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
