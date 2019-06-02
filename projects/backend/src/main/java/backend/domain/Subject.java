@@ -2,6 +2,7 @@ package backend.domain;
 
 import lombok.Data;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 
 @Data
 public class Subject {
@@ -9,9 +10,12 @@ public class Subject {
     private String id;
     private String topic;
     private String key;
+    @DBRef
+    private User lecturer;
 
-    public Subject(String topic, String key) {
+    public Subject(String topic, String key, User lecturer) {
         this.topic = topic;
         this.key = key;
+        this.lecturer = lecturer;
     }
 }
