@@ -8,6 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @RestController
 @RequestMapping("subjects")
 public class SubjectsController {
@@ -52,8 +55,9 @@ public class SubjectsController {
         return ResponseEntity.ok(subject);
     }
 
-    @GetMapping("lectures")
-    public String edit() {
-        return "Subjects List Endpoint";
+    @GetMapping
+    public ResponseEntity<List<Subject>> getSubjects() {
+        var subjects = subjectService.getSubjects();
+        return ResponseEntity.ok(subjects);
     }
 }
