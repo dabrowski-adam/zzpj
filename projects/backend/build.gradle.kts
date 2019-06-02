@@ -7,6 +7,9 @@
  */
 
 plugins {
+    id("org.springframework.boot") version "2.1.5.RELEASE"
+
+
     // Apply the java plugin to add support for Java
     java
 
@@ -14,10 +17,13 @@ plugins {
     application
 }
 
+apply(plugin = "io.spring.dependency-management")
+
 repositories {
     // Use jcenter for resolving your dependencies.
     // You can declare any Maven/Ivy/file repository here.
     jcenter()
+    mavenCentral()
 }
 
 dependencies {
@@ -26,6 +32,9 @@ dependencies {
 
     // Use JUnit test framework
     testImplementation("junit:junit:4.12")
+
+    implementation("org.springframework.boot:spring-boot-starter-data-mongodb")
+    testImplementation("org.springframework.boot:spring-boot-starter-test")
 }
 
 application {
