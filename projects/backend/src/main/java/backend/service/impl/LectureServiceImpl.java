@@ -22,7 +22,11 @@ public class LectureServiceImpl implements LectureService {
     public void update(Lecture lecture) {
         lecturesRepository.findById(lecture.getId()).
                 ifPresentOrElse(
-                        lecturesRepository::insert,
+                        x -> {
+                            //Chamski workaround ale insert i save nie dziala
+                            lecturesRepository.deleteById(lecture.getId());
+                            lecturesRepository.save(lecture);
+                        },
                         () -> {}
                 );
     }

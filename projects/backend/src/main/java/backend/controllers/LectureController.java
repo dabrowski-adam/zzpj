@@ -35,9 +35,10 @@ public class LectureController {
     }
 
     //TODO: Add validation mechanism
-    @PutMapping("update")
-    public ResponseEntity updateLecture(@RequestBody LectureDTO lectureDTO) {
+    @PutMapping("update/{lectureId}")
+    public ResponseEntity updateLecture(@PathVariable String lectureId, @RequestBody LectureDTO lectureDTO) {
         var lecture = modelMapper.map(lectureDTO, Lecture.class);
+        lecture.setId(lectureId);
         lectureService.update(lecture);
         return ResponseEntity.ok().build();
     }

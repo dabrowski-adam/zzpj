@@ -7,6 +7,7 @@ import java.time.LocalDateTime;
 
 @Data
 public class LectureDTO implements Serializable {
+    private String id;
     //TODO: Add remaining data
     private LocalDateTime start;
     private LocalDateTime end;
