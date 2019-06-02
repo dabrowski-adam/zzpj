@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 import static java.util.stream.Collectors.toList;
@@ -25,19 +26,28 @@ public class LectureController {
         this.modelMapper = modelMapper;
     }
 
+    //TODO: Add validation mechanism
     @PostMapping("add")
-    public String signup() {
-        return "Lecture Add Endpoint";
+    public ResponseEntity addLecture(@RequestBody LectureDTO lectureDTO) {
+        var lecture = modelMapper.map(lectureDTO, Lecture.class);
+        lectureService.add(lecture);
+        return ResponseEntity.ok().build();
     }
 
-    @PutMapping("edit")
-    public String login() {
-        return "Lecture Edit Endpoint";
+    //TODO: Add validation mechanism
+    @PutMapping("update")
+    public ResponseEntity updateLecture(@RequestBody LectureDTO lectureDTO) {
+        var lecture = modelMapper.map(lectureDTO, Lecture.class);
+        lectureService.update(lecture);
+        return ResponseEntity.ok().build();
     }
 
+    //TODO: Add validation mechanism
     @DeleteMapping("delete")
-    public String logout() {
-        return "Lecture Delete Endpoint";
+    public ResponseEntity deleteLecture(@RequestBody LectureDTO lectureDTO) {
+        var lecture = modelMapper.map(lectureDTO, Lecture.class);
+        lectureService.delete(lecture);
+        return ResponseEntity.ok().build();
     }
 
     @GetMapping
