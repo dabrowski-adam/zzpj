@@ -1,31 +1,30 @@
 package backend.controllers;
 
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class UsersController {
-    @RequestMapping("/users/signup")
+    @PostMapping("/users/signup")
     public String signup() {
         return "User Signup Endpoint";
     }
 
-    @RequestMapping("/users/login")
+    @PostMapping("/users/login")
     public String login() {
         return "User Login Endpoint";
     }
 
-    @RequestMapping("/users/logout")
+    @DeleteMapping("/users/logout")
     public String logout() {
         return "User Logout Endpoint";
     }
 
-    @RequestMapping("/users/edit")
+    @PutMapping("/users/edit")
     public String edit() {
         return "User Edit Endpoint";
     }
 
-    @RequestMapping("/users/forgot")
+    @PostMapping("/users/forgot")
     public String forgot() {
         return "User Forgot Endpoint";
     }
