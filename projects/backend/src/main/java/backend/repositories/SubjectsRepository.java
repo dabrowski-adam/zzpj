@@ -10,11 +10,11 @@ import java.util.Optional;
 
 @Repository
 public interface SubjectsRepository extends MongoRepository<Subject, String> {
-    public Optional<Subject> findById(String id);
-    public Subject findByKey(String key);
-    public List<Subject> findAllByLecturer(User user);
-    public List<Subject> findAll();
-    public Subject insert(Subject subject);
-    public Subject save(Subject subject);
-    public void deleteById(String id);
+    Optional<Subject> findById(String id);
+    Subject findByKey(String key);
+    List<Subject> findAllByLecturer(User user);
+    List<Subject> findAll();
+    Subject insert(Subject subject);
+    Subject save(Subject subject);
+    void deleteById(String id);
 }
