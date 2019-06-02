@@ -18,4 +18,7 @@ public class Subject {
         this.key = key;
         this.lecturer = lecturer;
     }
+
+    public Subject() {
+    }
 }
