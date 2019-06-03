@@ -6,16 +6,23 @@ import org.springframework.data.mongodb.core.mapping.DBRef;
 
 @Data
 public class Subject {
-    @Id
-    private String id;
-    private String topic;
-    private String key;
-    @DBRef
-    private User lecturer;
 
-    public Subject(String topic, String key, User lecturer) {
-        this.topic = topic;
-        this.key = key;
-        this.lecturer = lecturer;
-    }
+  @Id
+  private String id;
+  private String topic;
+  private String key;
+  @DBRef
+  private User lecturer;
+
+  /**
+   * Subject.
+   * @param topic Subject topic.
+   * @param key Subject key.
+   * @param lecturer Subject's lecturer.
+   */
+  public Subject(String topic, String key, User lecturer) {
+    this.topic = topic;
+    this.key = key;
+    this.lecturer = lecturer;
+  }
 }

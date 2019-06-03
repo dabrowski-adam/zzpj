@@ -1,61 +1,86 @@
 package backend.controllers;
 
+import static java.util.stream.Collectors.toList;
+
 import backend.domain.Lecture;
-import backend.dto.LectureDTO;
+import backend.dto.LectureDto;
 import backend.service.LectureService;
+import java.util.List;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
-import javax.validation.Valid;
-import java.util.List;
-
-import static java.util.stream.Collectors.toList;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/lectures")
 public class LectureController {
 
-    private final LectureService lectureService;
-    private final ModelMapper modelMapper;
+  private final LectureService lectureService;
+  private final ModelMapper modelMapper;
 
-    @Autowired
-    public LectureController(LectureService lectureService, ModelMapper modelMapper) {
-        this.lectureService = lectureService;
-        this.modelMapper = modelMapper;
-    }
+  @Autowired
+  public LectureController(LectureService lectureService, ModelMapper modelMapper) {
+    this.lectureService = lectureService;
+    this.modelMapper = modelMapper;
+  }
 
-    //TODO: Add validation mechanism
-    @PostMapping("add")
-    public ResponseEntity addLecture(@RequestBody LectureDTO lectureDTO) {
-        var lecture = modelMapper.map(lectureDTO, Lecture.class);
-        lectureService.add(lecture);
-        return ResponseEntity.ok().build();
-    }
+  //TODO: Add validation mechanism
+  /**
+   * Add a new lecture.
+   * @param lectureDto Lecture data.
+   * @return ResponseEntity
+   */
+  @PostMapping("add")
+  public ResponseEntity addLecture(@RequestBody LectureDto lectureDto) {
+    var lecture = modelMapper.map(lectureDto, Lecture.class);
+    lectureService.add(lecture);
+    return ResponseEntity.ok().build();
+  }
 
-    //TODO: Add validation mechanism
-    @PutMapping("update/{lectureId}")
-    public ResponseEntity updateLecture(@PathVariable String lectureId, @RequestBody LectureDTO lectureDTO) {
-        var lecture = modelMapper.map(lectureDTO, Lecture.class);
-        lecture.setId(lectureId);
-        lectureService.update(lecture);
-        return ResponseEntity.ok().build();
-    }
+  //TODO: Add validation mechanism
+  /**
+   * Update an existing lecture.
+   * @param lectureDto Lecture data.
+   * @return ResponseEntity
+   */
+  @PutMapping("update/{lectureId}")
+  public ResponseEntity updateLecture(@PathVariable String lectureId,
+      @RequestBody LectureDto lectureDto) {
+    var lecture = modelMapper.map(lectureDto, Lecture.class);
+    lecture.setId(lectureId);
+    lectureService.update(lecture);
+    return ResponseEntity.ok().build();
+  }
 
-    //TODO: Add validation mechanism
-    @DeleteMapping("delete")
-    public ResponseEntity deleteLecture(@RequestBody LectureDTO lectureDTO) {
-        var lecture = modelMapper.map(lectureDTO, Lecture.class);
-        lectureService.delete(lecture);
-        return ResponseEntity.ok().build();
-    }
+  //TODO: Add validation mechanism
+  /**
+   * Delete a lecture.
+   * @param lectureDto Lecture data.
+   * @return ResponseEntity
+   */
+  @DeleteMapping("delete")
+  public ResponseEntity deleteLecture(@RequestBody LectureDto lectureDto) {
+    var lecture = modelMapper.map(lectureDto, Lecture.class);
+    lectureService.delete(lecture);
+    return ResponseEntity.ok().build();
+  }
 
-    @GetMapping
-    public ResponseEntity<List<LectureDTO>> getLectures() {
-        var lectureDTOS = lectureService.getLectures().stream()
-                .map(x -> modelMapper.map(x, LectureDTO.class))
-                .collect(toList());
-        return ResponseEntity.ok(lectureDTOS);
-    }
+  /**
+   * Get a list of all Lectures.
+   * @return ResponseEntity
+   */
+  @GetMapping
+  public ResponseEntity<List<LectureDto>> getLectures() {
+    var lectureDtos = lectureService.getLectures().stream()
+                                    .map(x -> modelMapper.map(x, LectureDto.class))
+                                    .collect(toList());
+    return ResponseEntity.ok(lectureDtos);
+  }
 }
