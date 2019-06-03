@@ -6,6 +6,7 @@ matrix:
         - cd projects/backend
       script:
         - ./gradlew test
+        - ./gradlew check
         - ./gradlew build
 
     - language: node_js
