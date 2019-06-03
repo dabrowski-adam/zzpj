@@ -1,6 +1,0 @@
-install: true
-jdk: 
-  - openjdk11
-language: java
-script: 
-  - "./gradlew build --scan -s"
