@@ -10,14 +10,26 @@ import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class SubjectsControllerTest {
+public class SmokeTest {
+
+  @Autowired
+  private IndexController indexController;
+
+  @Autowired
+  private LectureController lectureController;
 
   @Autowired
   private SubjectsController subjectsController;
 
+  @Autowired
+  private UsersController usersController;
+
   @Test
   public void contextLoads() {
+    assertThat(indexController).isNotNull();
+    assertThat(lectureController).isNotNull();
     assertThat(subjectsController).isNotNull();
+    assertThat(usersController).isNotNull();
   }
 
 }
