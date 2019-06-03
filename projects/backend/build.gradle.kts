@@ -54,6 +54,7 @@ dependencies {
 checkstyle {
     toolVersion = "8.21" // TODO: Extract version into a variable
     config = resources.text.fromArchiveEntry(checkstyleConfig, "google_checks.xml")
+    maxWarnings = 0
 }
 
 application {
