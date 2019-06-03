@@ -19,7 +19,10 @@ public class LectureServiceImpl implements LectureService {
 
   @Override
   public void update(Lecture lecture) {
-    lecturesRepository.findById(lecture.getId()).ifPresent(lecturesRepository::insert);
+    lecturesRepository.findById(lecture.getId()).ifPresent(x -> {
+      lecturesRepository.deleteById(lecture.getId());
+      lecturesRepository.save(lecture);
+    });
   }
 
   @Override

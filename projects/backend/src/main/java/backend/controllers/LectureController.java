@@ -5,14 +5,13 @@ import static java.util.stream.Collectors.toList;
 import backend.domain.Lecture;
 import backend.dto.LectureDto;
 import backend.service.LectureService;
-
 import java.util.List;
-
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -51,9 +50,11 @@ public class LectureController {
    * @param lectureDto Lecture data.
    * @return ResponseEntity
    */
-  @PutMapping("update")
-  public ResponseEntity updateLecture(@RequestBody LectureDto lectureDto) {
+  @PutMapping("update/{lectureId}")
+  public ResponseEntity updateLecture(@PathVariable String lectureId,
+      @RequestBody LectureDto lectureDto) {
     var lecture = modelMapper.map(lectureDto, Lecture.class);
+    lecture.setId(lectureId);
     lectureService.update(lecture);
     return ResponseEntity.ok().build();
   }

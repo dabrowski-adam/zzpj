@@ -6,7 +6,8 @@ import lombok.Data;
 
 @Data
 public class LectureDto implements Serializable {
-
+  
+  private String id;
   //TODO: Add remaining data
   private LocalDateTime start;
   private LocalDateTime end;
