@@ -1,13 +1,23 @@
-language: generic
-
-sudo: false
-
-before_install:
-  - chmod +x .travis/build-condition.sh
-
 matrix:
-    include:
-        - env: PROJECT=projects/backend
-        - env: PROJECT=projects/frontend
+  include:
+    - language: java
+      jdk: oraclejdk11
+      before_install:
+        - cd projects/backend
+      script:
+        - ./gradlew test
+        - ./gradlew check
+        - ./gradlew build
 
-script: if .travis/build-condition.sh $TRAVIS_COMMIT_RANGE $PROJECT; then chmod +x "projects/$PROJECT/.travis/build.sh"; projects/$PROJECT/.travis/build.sh; echo "$PROJECT is being built"; else echo "$PROJECT is NOT being built (condition not met for commit range $TRAVIS_COMMIT_RANGE)"; fi
+    - language: node_js
+      node_js: 10
+      cache:
+        directories:
+        - projects/frontend/node_modules
+      before_install:
+        - cd projects/frontend
+      install:
+        - yarn
+      script:
+        - yarn test
+        - yarn build
