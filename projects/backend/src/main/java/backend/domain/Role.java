@@ -7,7 +7,8 @@ import org.springframework.data.annotation.Id;
 public class Role {
 
   enum Type {
-    LECTURER, STUDENT
+    LECTURER,
+    STUDENT
   }
 
   @Id

@@ -14,6 +14,9 @@ public class Subject {
   @DBRef
   private User lecturer;
 
+  public Subject() {
+  }
+
   /**
    * Subject.
    * @param topic Subject topic.
