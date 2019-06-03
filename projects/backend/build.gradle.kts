@@ -9,12 +9,13 @@
 plugins {
     id("org.springframework.boot") version "2.1.5.RELEASE"
 
-
     // Apply the java plugin to add support for Java
     java
 
     // Apply the application plugin to add support for building an application
     application
+
+    checkstyle
 }
 
 apply(plugin = "io.spring.dependency-management")
@@ -25,6 +26,8 @@ repositories {
     jcenter()
     mavenCentral()
 }
+
+val checkstyleConfig by configurations.creating
 
 dependencies {
     compile("org.springframework.boot:spring-boot-starter-web")
@@ -42,6 +45,15 @@ dependencies {
 
     // https://mvnrepository.com/artifact/org.modelmapper/modelmapper
     implementation("org.modelmapper:modelmapper:2.3.4")
+
+    checkstyleConfig("com.puppycrawl.tools:checkstyle:8.21") {
+        isTransitive = false
+    }
+}
+
+checkstyle {
+    toolVersion = "8.21" // TODO: Extract version into a variable
+    config = resources.text.fromArchiveEntry(checkstyleConfig, "google_checks.xml")
 }
 
 application {
