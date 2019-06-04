@@ -5,6 +5,7 @@ import com.auth0.jwt.algorithms.Algorithm;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Optional;
 
 import javax.servlet.FilterChain;
 
@@ -34,13 +35,16 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
       return;
     }
 
-    UsernamePasswordAuthenticationToken authentication = getAuthentication(req);
+    UsernamePasswordAuthenticationToken authentication = getAuthentication(req).get();
 
     SecurityContextHolder.getContext().setAuthentication(authentication);
     chain.doFilter(req, res);
   }
 
-  private UsernamePasswordAuthenticationToken getAuthentication(HttpServletRequest request) {
+  private Optional<UsernamePasswordAuthenticationToken>
+        getAuthentication(HttpServletRequest request) {
+    Optional<UsernamePasswordAuthenticationToken>
+        usernamePasswordAuthenticationToken = Optional.empty();
     String token = request.getHeader(SecurityConstants.HEADER_STRING);
     if (token != null) {
       // parse the token.
@@ -50,10 +54,10 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
           .getSubject();
 
       if (user != null) {
-        return new UsernamePasswordAuthenticationToken(user, null, new ArrayList<>());
+        usernamePasswordAuthenticationToken = Optional
+            .of(new UsernamePasswordAuthenticationToken(user, null, new ArrayList<>()));
       }
-      return null;
     }
-    return null;
+    return usernamePasswordAuthenticationToken;
   }
 }

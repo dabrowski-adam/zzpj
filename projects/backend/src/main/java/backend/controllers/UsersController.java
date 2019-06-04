@@ -72,6 +72,6 @@ public class UsersController {
   @PostMapping("forgot")
   public ResponseEntity forgot() {
     //TODO forgot pass logic
-    return ResponseEntity.ok().build();
+    return ResponseEntity.badRequest().build();
   }
 }
