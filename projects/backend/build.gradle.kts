@@ -36,7 +36,6 @@ dependencies {
 
     // Use JUnit test framework
     testImplementation("junit:junit:4.12")
-    testCompile("org.assertj:assertj-core:3.11.1")
 
     implementation("org.springframework.boot:spring-boot-starter-data-mongodb")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
