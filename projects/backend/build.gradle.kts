@@ -34,9 +34,7 @@ dependencies {
     // This dependency is found on compile classpath of this component and consumers.
     implementation("com.google.guava:guava:27.0.1-jre")
 
-    compile("org.springframework.security:spring-security-core:5.1.5.RELEASE")
-    compile("org.springframework.security:spring-security-web:5.1.5.RELEASE")
-    compile("org.springframework.security:spring-security-config:5.1.5.RELEASE")
+    compile("org.springframework.boot:spring-boot-starter-security")
     compile("com.auth0:java-jwt:3.4.0")
 
     // Use JUnit test framework

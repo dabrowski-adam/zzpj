@@ -6,7 +6,7 @@ import backend.service.UserService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -14,17 +14,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-
-
-
 @RestController
 @RequestMapping("users")
 public class UsersController {
 
   private final UserService userService;
   private final ModelMapper modelMapper;
-  private final BCryptPasswordEncoder passwordEncoder;
-
+  private final PasswordEncoder passwordEncoder;
 
   /**
    * Constructor.
@@ -35,7 +31,7 @@ public class UsersController {
   @Autowired
   public UsersController(UserService userService,
                          ModelMapper modelMapper,
-                         BCryptPasswordEncoder passwordEncoder) {
+                         PasswordEncoder passwordEncoder) {
     this.userService = userService;
     this.modelMapper = modelMapper;
     this.passwordEncoder = passwordEncoder;
@@ -71,7 +67,7 @@ public class UsersController {
 
   @PostMapping("forgot")
   public ResponseEntity forgot() {
-    //TODO forgot pass logic
+    // TODO forgot pass logic
     return ResponseEntity.badRequest().build();
   }
 }
