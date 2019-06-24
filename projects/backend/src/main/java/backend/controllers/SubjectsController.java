@@ -21,12 +21,10 @@ import org.springframework.web.bind.annotation.RestController;
 public class SubjectsController {
 
   private final SubjectService subjectService;
-  private final ModelMapper modelMapper;
 
   @Autowired
-  public SubjectsController(SubjectService subjectService, ModelMapper modelMapper) {
+  public SubjectsController(SubjectService subjectService) {
     this.subjectService = subjectService;
-    this.modelMapper = modelMapper;
   }
 
   // TODO: Add validation mechanism
@@ -37,7 +35,7 @@ public class SubjectsController {
    */
   @PostMapping("add")
   public ResponseEntity addSubject(@RequestBody SubjectDto subjectDto) {
-    var subject = modelMapper.map(subjectDto, Subject.class);
+    var subject = SubjectDto.toModel(subjectDto);
     subjectService.add(subject);
     return ResponseEntity.ok().build();
   }
@@ -52,7 +50,7 @@ public class SubjectsController {
   @PutMapping("update/{subjectId}")
   public ResponseEntity updateSubject(@PathVariable String subjectId,
       @RequestBody SubjectDto subjectDto) {
-    var subject = modelMapper.map(subjectDto, Subject.class);
+    var subject = SubjectDto.toModel(subjectDto);
     subject.setId(subjectId);
     subjectService.update(subject);
     return ResponseEntity.ok().build();

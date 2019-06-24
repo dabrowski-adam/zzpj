@@ -2,11 +2,10 @@ package backend.controllers;
 
 import static java.util.stream.Collectors.toList;
 
-import backend.domain.Lecture;
 import backend.dto.LectureDto;
 import backend.service.LectureService;
 import java.util.List;
-import org.modelmapper.ModelMapper;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -23,12 +22,10 @@ import org.springframework.web.bind.annotation.RestController;
 public class LectureController {
 
   private final LectureService lectureService;
-  private final ModelMapper modelMapper;
 
   @Autowired
-  public LectureController(LectureService lectureService, ModelMapper modelMapper) {
+  public LectureController(LectureService lectureService) {
     this.lectureService = lectureService;
-    this.modelMapper = modelMapper;
   }
 
   //TODO: Add validation mechanism
@@ -39,7 +36,7 @@ public class LectureController {
    */
   @PostMapping("add")
   public ResponseEntity addLecture(@RequestBody LectureDto lectureDto) {
-    var lecture = modelMapper.map(lectureDto, Lecture.class);
+    var lecture = LectureDto.toModel(lectureDto);
     lectureService.add(lecture);
     return ResponseEntity.ok().build();
   }
@@ -53,7 +50,7 @@ public class LectureController {
   @PutMapping("update/{lectureId}")
   public ResponseEntity updateLecture(@PathVariable String lectureId,
       @RequestBody LectureDto lectureDto) {
-    var lecture = modelMapper.map(lectureDto, Lecture.class);
+    var lecture = LectureDto.toModel(lectureDto);
     lecture.setId(lectureId);
     lectureService.update(lecture);
     return ResponseEntity.ok().build();
@@ -67,7 +64,7 @@ public class LectureController {
    */
   @DeleteMapping("delete")
   public ResponseEntity deleteLecture(@RequestBody LectureDto lectureDto) {
-    var lecture = modelMapper.map(lectureDto, Lecture.class);
+    var lecture = LectureDto.toModel(lectureDto);
     lectureService.delete(lecture);
     return ResponseEntity.ok().build();
   }
@@ -79,7 +76,7 @@ public class LectureController {
   @GetMapping
   public ResponseEntity<List<LectureDto>> getLectures() {
     var lectureDtos = lectureService.getLectures().stream()
-                                    .map(x -> modelMapper.map(x, LectureDto.class))
+                                    .map(LectureDto::toDto)
                                     .collect(toList());
     return ResponseEntity.ok(lectureDtos);
   }

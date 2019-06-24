@@ -19,21 +19,17 @@ import org.springframework.web.bind.annotation.RestController;
 public class UsersController {
 
   private final UserService userService;
-  private final ModelMapper modelMapper;
   private final PasswordEncoder passwordEncoder;
 
   /**
    * Constructor.
    * @param userService user service
-   * @param modelMapper model mapper
    * @param passwordEncoder password encoder
    */
   @Autowired
   public UsersController(UserService userService,
-                         ModelMapper modelMapper,
                          PasswordEncoder passwordEncoder) {
     this.userService = userService;
-    this.modelMapper = modelMapper;
     this.passwordEncoder = passwordEncoder;
   }
 
@@ -44,7 +40,7 @@ public class UsersController {
    */
   @PostMapping("signup")
   public ResponseEntity signup(@RequestBody UserDto userDto) {
-    var user = modelMapper.map(userDto, User.class);
+    var user = UserDto.toModel(userDto);
     user.setPassword(passwordEncoder.encode(user.getPassword()));
     userService.add(user);
     return ResponseEntity.ok().build();
@@ -59,7 +55,7 @@ public class UsersController {
   @PutMapping("edit/{userId}")
   public ResponseEntity edit(@PathVariable String userId,
                              @RequestBody UserDto userDto) {
-    var user = modelMapper.map(userDto, User.class);
+    var user = UserDto.toModel(userDto);
     user.setId(userId);
     userService.update(user);
     return ResponseEntity.ok().build();
