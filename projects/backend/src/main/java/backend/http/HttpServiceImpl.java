@@ -1,5 +1,7 @@
 package backend.http;
 
+import org.springframework.stereotype.Service;
+
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
@@ -8,15 +10,32 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
+@Service
 public class HttpServiceImpl implements HttpService {
 
-    private final HttpURLConnection connection;
+    private HttpURLConnection connection;
     private Map<String, String> requestProperties;
     private String content;
 
     public HttpServiceImpl(String url) throws IOException {
-        this.connection = (HttpURLConnection) new URL(url).openConnection();
+        this();
+
+        createConnectionFromUrl(url);
+    }
+
+    public HttpServiceImpl() {
         this.requestProperties = new HashMap<>();
+    }
+
+    private void createConnectionFromUrl(String url) throws IOException {
+        this.connection = (HttpURLConnection) new URL(url).openConnection();
+    }
+
+    @Override
+    public HttpService setUrl(String url) throws IOException {
+        createConnectionFromUrl(url);
+
+        return this;
     }
 
     @Override
@@ -60,7 +79,6 @@ public class HttpServiceImpl implements HttpService {
             writeBody();
         }
 
-
         String response = this.getResponse();
 
         connection.disconnect();
@@ -80,6 +98,7 @@ public class HttpServiceImpl implements HttpService {
 
         InputStream is = connection.getInputStream();
         BufferedReader rd = new BufferedReader(new InputStreamReader(is));
+
         String line;
         while ((line = rd.readLine()) != null) {
             response.append(line);
@@ -87,6 +106,7 @@ public class HttpServiceImpl implements HttpService {
         }
         rd.close();
         is.close();
+
         return response.toString();
     }
 }
