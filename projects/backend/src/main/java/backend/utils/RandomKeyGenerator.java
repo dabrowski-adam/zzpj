@@ -4,6 +4,10 @@ import java.nio.charset.Charset;
 import java.util.Random;
 
 public class RandomKeyGenerator {
+  /**
+   * Random Key Generator.
+   * @return String
+   */
   public static String generate() {
     int leftLimit = 97;
     int rightLimit = 122;
@@ -12,7 +16,7 @@ public class RandomKeyGenerator {
     StringBuilder buffer = new StringBuilder(targetStringLength);
     for (int i = 0; i < targetStringLength; i++) {
       int randomLimitedInt = leftLimit + (int)
-        (random.nextFloat() * (rightLimit - leftLimit + 1));
+          (random.nextFloat() * (rightLimit - leftLimit + 1));
       buffer.append((char) randomLimitedInt);
     }
     return buffer.toString();

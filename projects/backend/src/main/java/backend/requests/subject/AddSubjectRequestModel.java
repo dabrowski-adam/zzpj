@@ -1,10 +1,9 @@
 package backend.requests.subject;
 
-import lombok.Data;
-import lombok.Getter;
-
-import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
+import javax.validation.constraints.NotNull;
+
+import lombok.Getter;
 
 public class AddSubjectRequestModel {
   @Getter

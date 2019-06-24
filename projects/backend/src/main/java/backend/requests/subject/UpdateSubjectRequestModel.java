@@ -1,10 +1,8 @@
 package backend.requests.subject;
 
-import backend.requests.lecture.AddLectureRequestModel;
-import lombok.Getter;
-
 import javax.validation.constraints.NotNull;
 
+import lombok.Getter;
 
 public class UpdateSubjectRequestModel extends AddSubjectRequestModel {
   @Getter

@@ -1,9 +1,8 @@
 package backend.requests.lecture;
 
-import lombok.Data;
-import lombok.Getter;
-
 import javax.validation.constraints.NotNull;
+
+import lombok.Getter;
 
 
 public class UpdateLectureRequestModel extends AddLectureRequestModel {

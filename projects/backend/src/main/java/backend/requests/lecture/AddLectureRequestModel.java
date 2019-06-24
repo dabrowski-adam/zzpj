@@ -1,9 +1,9 @@
 package backend.requests.lecture;
 
-import lombok.Data;
-
-import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
+import javax.validation.constraints.NotNull;
+
+import lombok.Data;
 
 @Data
 public class AddLectureRequestModel {

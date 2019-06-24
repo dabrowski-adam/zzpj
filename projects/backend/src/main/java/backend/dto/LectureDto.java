@@ -1,11 +1,12 @@
 package backend.dto;
 
-import java.io.Serializable;
-import java.time.LocalDateTime;
-
 import backend.requests.lecture.AddLectureRequestModel;
 import backend.requests.lecture.UpdateLectureRequestModel;
 import backend.utils.RandomKeyGenerator;
+
+import java.io.Serializable;
+import java.time.LocalDateTime;
+
 import lombok.Data;
 
 @Data
@@ -20,6 +21,12 @@ public class LectureDto implements Serializable {
   private boolean isOpen;
   private boolean isChecked;
 
+
+  /**
+   * Parse Add Lecture Request.
+   * @param request Add Lecture Request.
+   * @return LectureDto
+   */
   public static LectureDto parseFromAddLectureRequest(AddLectureRequestModel request) {
     LectureDto dto = new LectureDto();
     dto.start = request.getStart();
@@ -30,6 +37,11 @@ public class LectureDto implements Serializable {
     return dto;
   }
 
+  /**
+   * Parse Update Lecture Request.
+   * @param request Update Lecture Request.
+   * @return LectureDto
+   */
   public static LectureDto parseFromUpdateLectureRequest(UpdateLectureRequestModel request) {
     LectureDto dto = new LectureDto();
     dto.id = request.getId();

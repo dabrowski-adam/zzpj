@@ -1,10 +1,11 @@
 package backend.dto;
 
-import java.io.Serializable;
-
 import backend.requests.subject.AddSubjectRequestModel;
 import backend.requests.subject.UpdateSubjectRequestModel;
 import backend.utils.RandomKeyGenerator;
+
+import java.io.Serializable;
+
 import lombok.Data;
 
 @Data
@@ -13,6 +14,11 @@ public class SubjectDto implements Serializable {
   private String topic;
   private String key;
 
+  /**
+   * Parse Add Subject Request.
+   * @param request Add Subject Request.
+   * @return Subject Dto
+   */
   public static SubjectDto parseFromAddSubjectRequest(AddSubjectRequestModel request) {
     SubjectDto dto = new SubjectDto();
     dto.topic = request.getTopic();
@@ -20,6 +26,11 @@ public class SubjectDto implements Serializable {
     return dto;
   }
 
+  /**
+   * Parse Update Subject Request.
+   * @param request Update Subject Request.
+   * @return Subject Dto
+   */
   public static SubjectDto parseFromUpdateSubjectRequest(UpdateSubjectRequestModel request) {
     SubjectDto dto = new SubjectDto();
     dto.topic = request.getTopic();
