@@ -1,11 +1,13 @@
 package backend.service;
 
 import backend.dto.EmailDto;
-import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 
+import org.springframework.stereotype.Service;
+
 @Service
 public interface EmailService {
-    String send(EmailDto email) throws IOException;
+
+  String send(EmailDto email) throws IOException;
 }
