@@ -97,6 +97,12 @@ public class LectureController {
     return ResponseEntity.ok(lectureDtos);
   }
 
+  /**
+   * Open the lecture.
+   *
+   * @param lectureId lecture id
+   * @return ResponseEntity
+   */
   @PutMapping("open/{lectureId}")
   public ResponseEntity openLecture(@PathVariable String lectureId, @RequestBody long pin) {
     this.lectureService.open(lectureId, pin);
@@ -105,6 +111,12 @@ public class LectureController {
         .build();
   }
 
+  /**
+   * Close the lecture.
+   *
+   * @param lectureId lecture id
+   * @return ResponseEntity
+   */
   @PutMapping("close/{lectureId}")
   public ResponseEntity closeLecture(@PathVariable String lectureId) {
     this.lectureService.close(lectureId);

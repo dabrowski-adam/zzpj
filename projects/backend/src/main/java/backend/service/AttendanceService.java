@@ -14,4 +14,6 @@ public interface AttendanceService {
   void delete(Attendance attendance);
 
   List<Attendance> getAttendances();
+
+  Attendance get(String attendanceId);
 }

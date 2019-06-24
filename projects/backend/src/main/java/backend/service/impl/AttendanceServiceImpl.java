@@ -20,6 +20,11 @@ public class AttendanceServiceImpl implements AttendanceService {
   }
 
   @Override
+  public Attendance get(String attendanceId) {
+    return attendancesRepository.findById(attendanceId).orElse(null);
+  }
+
+  @Override
   public void update(Attendance attendance) {
     attendancesRepository.findById(attendance.getId())
         .ifPresent(x -> {
