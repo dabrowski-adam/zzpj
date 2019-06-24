@@ -56,7 +56,7 @@ public class AttendanceController {
    * @return ResponseEntity
    */
   @DeleteMapping("delete/{attendanceId}")
-  public ResponseEntity deleteSubject(@PathVariable String attendanceId) {
+  public ResponseEntity deleteAttendance(@PathVariable String attendanceId) {
     var attendance = attendanceService.get(attendanceId);
     attendanceService.delete(attendance);
     return ResponseEntity.ok()
@@ -70,13 +70,13 @@ public class AttendanceController {
    * @return ResponseEntity
    */
   @GetMapping("{attendanceId}")
-  public ResponseEntity getSubject(@PathVariable String attendanceId) {
+  public ResponseEntity getAttendance(@PathVariable String attendanceId) {
     var attendance = attendanceService.get(attendanceId);
     return ResponseEntity.ok(attendance);
   }
 
   @GetMapping
-  public ResponseEntity<List<Attendance>> getSubjects() {
+  public ResponseEntity<List<Attendance>> getAttendances() {
     var attendances = attendanceService.getAttendances();
     return ResponseEntity.ok(attendances);
   }
