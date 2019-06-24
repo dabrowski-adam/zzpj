@@ -49,6 +49,9 @@ dependencies {
     // https://mvnrepository.com/artifact/org.modelmapper/modelmapper
     implementation("org.modelmapper:modelmapper:2.3.4")
 
+    compile("io.springfox:springfox-swagger2:2.9.2")
+    compile("io.springfox:springfox-swagger-ui:2.9.2")
+
     checkstyleConfig("com.puppycrawl.tools:checkstyle:8.21") {
         isTransitive = false
     }
