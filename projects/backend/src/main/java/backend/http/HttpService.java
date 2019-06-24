@@ -8,6 +8,6 @@ public interface HttpService {
     HttpService asJSON();
     HttpService setRequestMethod(RequestMethod requestMethod) throws ProtocolException;
     HttpService setContent(String content);
-    void send() throws IOException;
+    String send() throws IOException;
 }
 

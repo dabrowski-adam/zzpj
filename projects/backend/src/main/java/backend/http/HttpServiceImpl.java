@@ -1,7 +1,6 @@
 package backend.http;
 
-import java.io.DataOutputStream;
-import java.io.IOException;
+import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
@@ -49,7 +48,7 @@ public class HttpServiceImpl implements HttpService {
     }
 
     @Override
-    public void send() throws IOException {
+    public String send() throws IOException {
         for (Map.Entry<String, String> entry : requestProperties.entrySet()) {
             this.connection.setRequestProperty(entry.getKey(), entry.getValue());
         }
@@ -64,6 +63,24 @@ public class HttpServiceImpl implements HttpService {
             wr.close();
         }
 
+
+        String response = this.getResponse();
+
         connection.disconnect();
+
+        return response;
+    }
+
+    private String getResponse() throws IOException {
+        InputStream is = connection.getInputStream();
+        StringBuilder response = new StringBuilder(); // or StringBuffer if Java version 5+
+        BufferedReader rd = new BufferedReader(new InputStreamReader(is));
+        String line;
+        while ((line = rd.readLine()) != null) {
+            response.append(line);
+            response.append('\r');
+        }
+        rd.close();
+        return response.toString();
     }
 }

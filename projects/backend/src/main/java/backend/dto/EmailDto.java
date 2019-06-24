@@ -3,12 +3,13 @@ package backend.dto;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.Getter;
 
 import java.io.Serializable;
 
 @AllArgsConstructor
-@Getter
+@Data
 public class EmailDto implements Serializable {
 
     private String to;
