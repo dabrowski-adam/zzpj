@@ -5,8 +5,9 @@ import java.net.ProtocolException;
 
 public interface HttpService {
     HttpService setRequestProperty(String key, String value);
+    HttpService asJSON();
     HttpService setRequestMethod(RequestMethod requestMethod) throws ProtocolException;
-    HttpService setContent(String string);
+    HttpService setContent(String content);
     void send() throws IOException;
 }
 

@@ -28,6 +28,13 @@ public class HttpServiceImpl implements HttpService {
     }
 
     @Override
+    public HttpService asJSON() {
+        this.setRequestProperty("Content-Type", "application/json");
+
+        return this;
+    }
+
+    @Override
     public HttpService setRequestMethod(RequestMethod requestMethod) throws ProtocolException {
         this.connection.setRequestMethod(requestMethod.name());
 
@@ -35,7 +42,7 @@ public class HttpServiceImpl implements HttpService {
     }
 
     @Override
-    public HttpService setContent(String string) {
+    public HttpService setContent(String content) {
         this.content = content;
 
         return this;
@@ -50,7 +57,7 @@ public class HttpServiceImpl implements HttpService {
         connection.setUseCaches(false);
         connection.setDoOutput(true);
 
-        if(content != null) {
+        if (content != null) {
             DataOutputStream wr = new DataOutputStream(connection.getOutputStream());
             wr.writeBytes(content);
             wr.flush();
