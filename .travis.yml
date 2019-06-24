@@ -2,7 +2,6 @@ matrix:
   include:
     - dist: xenial
       language: java
-      jdk: oraclejdk11
       before_install:
         - cd projects/backend
       script:
