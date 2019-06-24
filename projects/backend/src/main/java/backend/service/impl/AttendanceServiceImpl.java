@@ -53,6 +53,6 @@ public class AttendanceServiceImpl implements AttendanceService {
 
   @Override
   public List<Attendance> getAttendances() {
-    return null;
+    return attendancesRepository.findAll();
   }
 }
