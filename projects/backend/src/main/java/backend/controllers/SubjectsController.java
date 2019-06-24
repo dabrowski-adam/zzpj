@@ -2,6 +2,7 @@ package backend.controllers;
 
 import backend.domain.Subject;
 import backend.dto.SubjectDto;
+import backend.requests.subject.AddSubjectRequestModel;
 import backend.service.SubjectService;
 import java.util.List;
 import org.modelmapper.ModelMapper;
@@ -15,6 +16,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.validation.Valid;
 
 @RestController
 @RequestMapping("subjects")
@@ -32,11 +35,12 @@ public class SubjectsController {
   // TODO: Add validation mechanism
   /**
    * Add subject.
-   * @param subjectDto Subject data.
+   * @param request Subject data.
    * @return ResponseEntity
    */
   @PostMapping("add")
-  public ResponseEntity addSubject(@RequestBody SubjectDto subjectDto) {
+  public ResponseEntity addSubject(@Valid @RequestBody AddSubjectRequestModel request) {
+    SubjectDto subjectDto = SubjectDto.parseFromAddSubjectRequest(request);
     var subject = modelMapper.map(subjectDto, Subject.class);
     subjectService.add(subject);
     return ResponseEntity.ok().build();

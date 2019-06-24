@@ -3,7 +3,7 @@ package backend.utils;
 import java.nio.charset.Charset;
 import java.util.Random;
 
-public class RandomLectureKeyGenerator {
+public class RandomKeyGenerator {
   public static String generate() {
     int leftLimit = 97;
     int rightLimit = 122;

@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 
 import backend.requests.lecture.AddLectureRequestModel;
 import backend.requests.lecture.UpdateLectureRequestModel;
-import backend.utils.RandomLectureKeyGenerator;
+import backend.utils.RandomKeyGenerator;
 import lombok.Data;
 
 @Data
@@ -26,7 +26,7 @@ public class LectureDto implements Serializable {
     dto.end = request.getEnd();
     dto.isOpen = false;
     dto.isChecked = false;
-    dto.key = RandomLectureKeyGenerator.generate();
+    dto.key = RandomKeyGenerator.generate();
     return dto;
   }
 
