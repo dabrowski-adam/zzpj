@@ -4,6 +4,7 @@ import static java.util.stream.Collectors.toList;
 
 import backend.domain.Lecture;
 import backend.dto.LectureDto;
+import backend.requests.lecture.AddLectureRequestModel;
 import backend.service.LectureService;
 import java.util.List;
 import org.modelmapper.ModelMapper;
@@ -17,6 +18,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/lectures")
@@ -34,11 +37,12 @@ public class LectureController {
   //TODO: Add validation mechanism
   /**
    * Add a new lecture.
-   * @param lectureDto Lecture data.
+   * @param request Lecture data.
    * @return ResponseEntity
    */
   @PostMapping("add")
-  public ResponseEntity addLecture(@RequestBody LectureDto lectureDto) {
+  public ResponseEntity addLecture(@Valid @RequestBody AddLectureRequestModel request) {
+    LectureDto lectureDto = LectureDto.parseFromAddLectureRequest(request);
     var lecture = modelMapper.map(lectureDto, Lecture.class);
     lectureService.add(lecture);
     return ResponseEntity.ok().build();
