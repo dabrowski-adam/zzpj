@@ -57,10 +57,7 @@ public class HttpServiceImpl implements HttpService {
         connection.setDoOutput(true);
 
         if (content != null) {
-            DataOutputStream wr = new DataOutputStream(connection.getOutputStream());
-            wr.writeBytes(content);
-            wr.flush();
-            wr.close();
+            writeBody();
         }
 
 
@@ -71,9 +68,17 @@ public class HttpServiceImpl implements HttpService {
         return response;
     }
 
+    private void writeBody() throws IOException {
+        DataOutputStream wr = new DataOutputStream(connection.getOutputStream());
+        wr.writeBytes(content);
+        wr.flush();
+        wr.close();
+    }
+
     private String getResponse() throws IOException {
+        StringBuilder response = new StringBuilder();
+
         InputStream is = connection.getInputStream();
-        StringBuilder response = new StringBuilder(); // or StringBuffer if Java version 5+
         BufferedReader rd = new BufferedReader(new InputStreamReader(is));
         String line;
         while ((line = rd.readLine()) != null) {
@@ -81,6 +86,7 @@ public class HttpServiceImpl implements HttpService {
             response.append('\r');
         }
         rd.close();
+        is.close();
         return response.toString();
     }
 }
