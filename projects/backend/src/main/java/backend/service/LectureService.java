@@ -20,4 +20,6 @@ public interface LectureService {
   void open(String id, long pin);
 
   void close(String id);
+
+  Lecture get(String id);
 }

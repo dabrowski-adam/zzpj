@@ -1,6 +1,8 @@
 package backend.service.impl;
 
 import backend.domain.Attendance;
+import backend.domain.Lecture;
+import backend.domain.User;
 import backend.repositories.AttendancesRepository;
 import backend.service.AttendanceService;
 
@@ -21,7 +23,13 @@ public class AttendanceServiceImpl implements AttendanceService {
 
   @Override
   public Attendance get(String attendanceId) {
-    return attendancesRepository.findById(attendanceId).orElse(null);
+    return attendancesRepository.findById(attendanceId)
+        .orElse(null);
+  }
+
+  @Override
+  public Attendance findByLectureAndStudent(Lecture lecture, User student) {
+    return attendancesRepository.findByLectureAndStudent(lecture, student);
   }
 
   @Override

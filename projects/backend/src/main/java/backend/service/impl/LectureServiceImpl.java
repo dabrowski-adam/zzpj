@@ -63,4 +63,10 @@ public class LectureServiceImpl implements LectureService {
           update(x);
         });
   }
+
+  @Override
+  public Lecture get(String lectureId) {
+    return lecturesRepository.findById(lectureId)
+        .orElse(null);
+  }
 }
