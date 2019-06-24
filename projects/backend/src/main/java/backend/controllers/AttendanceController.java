@@ -5,22 +5,24 @@ import backend.domain.Lecture;
 import backend.domain.User;
 import backend.dto.AttendanceDto;
 import backend.service.AttendanceService;
+import backend.service.LectureService;
+import backend.service.UserService;
 
 import java.util.List;
 
-import backend.service.LectureService;
-import backend.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.http.ResponseEntity;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+
+import org.springframework.web.bind.annotation.RequestBody;
+
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.RequestBody;
 
 @RestController
 @RequestMapping("attendances")
@@ -30,6 +32,13 @@ public class AttendanceController {
   private final LectureService lectureService;
   private final UserService userService;
 
+  /**
+   * AttendanceController constructor.
+   *
+   * @param attendanceService attendance service
+   * @param lectureService lecture service
+   * @param userService user service
+   */
   @Autowired
   public AttendanceController(AttendanceService attendanceService, LectureService lectureService,
       UserService userService) {
@@ -72,6 +81,13 @@ public class AttendanceController {
     return ResponseEntity.ok(attendances);
   }
 
+  /**
+   * Check attendance.
+   *
+   * @param lectureId Lecture id
+   * @param attendanceDto attendance data
+   * @return ResponseEntity
+   */
   @PostMapping("check/{lectureId}")
   public ResponseEntity checkAttendance(@PathVariable String lectureId,
       @RequestBody AttendanceDto attendanceDto) {
@@ -79,20 +95,22 @@ public class AttendanceController {
     User student = userService.get(attendanceDto.getStudentId());
 
     if (lecture != null && student != null) {
-      Attendance attendance = attendanceService.findByLectureAndStudent(
-          lecture, student);
+      Attendance attendance = attendanceService.findByLectureAndStudent(lecture, student);
 
       if (attendance == null) {
         attendance = new Attendance(lecture, student, (byte) 0);
 
         attendanceService.add(attendance);
 
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok()
+            .build();
       }
 
-      return ResponseEntity.badRequest().build();
+      return ResponseEntity.badRequest()
+          .build();
     }
 
-    return ResponseEntity.badRequest().build();
+    return ResponseEntity.badRequest()
+        .build();
   }
 }
