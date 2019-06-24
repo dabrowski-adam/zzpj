@@ -1,14 +1,14 @@
 package backend.dto;
 
+import lombok.Data;
+
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import lombok.Data;
 
 @Data
 public class LectureDto implements Serializable {
   
   private String id;
-  //TODO: Add remaining data
   private LocalDateTime start;
   private LocalDateTime end;
   private String key;

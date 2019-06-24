@@ -1,7 +1,8 @@
 package backend.dto;
 
-import java.io.Serializable;
 import lombok.Data;
+
+import java.io.Serializable;
 
 @Data
 public class SubjectDto implements Serializable {
