@@ -3,6 +3,7 @@ package backend.controllers;
 import backend.domain.Subject;
 import backend.dto.SubjectDto;
 import backend.requests.subject.AddSubjectRequestModel;
+import backend.requests.subject.UpdateSubjectRequestModel;
 import backend.service.SubjectService;
 import java.util.List;
 import org.modelmapper.ModelMapper;
@@ -50,12 +51,13 @@ public class SubjectsController {
   /**
    * Update subject.
    * @param subjectId Subject id.
-   * @param subjectDto Subject data.
+   * @param request Subject data.
    * @return ResponseEntity
    */
   @PutMapping("update/{subjectId}")
   public ResponseEntity updateSubject(@PathVariable String subjectId,
-      @RequestBody SubjectDto subjectDto) {
+                                      @Valid @RequestBody UpdateSubjectRequestModel request) {
+    SubjectDto subjectDto = SubjectDto.parseFromUpdateSubjectRequest(request);
     var subject = modelMapper.map(subjectDto, Subject.class);
     subject.setId(subjectId);
     subjectService.update(subject);
