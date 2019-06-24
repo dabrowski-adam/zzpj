@@ -5,6 +5,7 @@ import static java.util.stream.Collectors.toList;
 import backend.domain.Lecture;
 import backend.dto.LectureDto;
 import backend.requests.lecture.AddLectureRequestModel;
+import backend.requests.lecture.UpdateLectureRequestModel;
 import backend.service.LectureService;
 import java.util.List;
 import org.modelmapper.ModelMapper;
@@ -51,12 +52,13 @@ public class LectureController {
   //TODO: Add validation mechanism
   /**
    * Update an existing lecture.
-   * @param lectureDto Lecture data.
+   * @param request Lecture data.
    * @return ResponseEntity
    */
   @PutMapping("update/{lectureId}")
   public ResponseEntity updateLecture(@PathVariable String lectureId,
-      @RequestBody LectureDto lectureDto) {
+      @Valid @RequestBody UpdateLectureRequestModel request) {
+    LectureDto lectureDto = LectureDto.parseFromUpdateLectureRequest(request);
     var lecture = modelMapper.map(lectureDto, Lecture.class);
     lecture.setId(lectureId);
     lectureService.update(lecture);

@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 import backend.requests.lecture.AddLectureRequestModel;
+import backend.requests.lecture.UpdateLectureRequestModel;
 import backend.utils.RandomLectureKeyGenerator;
 import lombok.Data;
 
@@ -21,11 +22,23 @@ public class LectureDto implements Serializable {
 
   public static LectureDto parseFromAddLectureRequest(AddLectureRequestModel request) {
     LectureDto dto = new LectureDto();
-    dto.setStart(request.getStart());
-    dto.setEnd(request.getEnd());
-    dto.setOpen(false);
-    dto.setChecked(false);
-    dto.setKey(RandomLectureKeyGenerator.generate());
+    dto.start = request.getStart();
+    dto.end = request.getEnd();
+    dto.isOpen = false;
+    dto.isChecked = false;
+    dto.key = RandomLectureKeyGenerator.generate();
+    return dto;
+  }
+
+  public static LectureDto parseFromUpdateLectureRequest(UpdateLectureRequestModel request) {
+    LectureDto dto = new LectureDto();
+    dto.id = request.getId();
+    dto.start = request.getStart();
+    dto.end = request.getEnd();
+    dto.key = request.getKey();
+    dto.pin = request.getPin();
+    dto.isOpen = request.isOpen();
+    dto.isChecked = request.isChecked();
     return dto;
   }
 }
