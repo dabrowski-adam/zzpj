@@ -1,9 +1,7 @@
 package backend.controllers;
 
-import backend.domain.User;
 import backend.dto.UserDto;
 import backend.service.UserService;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -23,18 +21,20 @@ public class UsersController {
 
   /**
    * Constructor.
+   *
    * @param userService user service
    * @param passwordEncoder password encoder
    */
   @Autowired
   public UsersController(UserService userService,
-                         PasswordEncoder passwordEncoder) {
+      PasswordEncoder passwordEncoder) {
     this.userService = userService;
     this.passwordEncoder = passwordEncoder;
   }
 
   /**
    * User sign up.
+   *
    * @param userDto user Data
    * @return ResponseEntity
    */
@@ -48,13 +48,13 @@ public class UsersController {
 
   /**
    * Editing user.
+   *
    * @param userId id of user
    * @param userDto data of user
-   * @return
    */
   @PutMapping("edit/{userId}")
   public ResponseEntity edit(@PathVariable String userId,
-                             @RequestBody UserDto userDto) {
+      @RequestBody UserDto userDto) {
     var user = UserDto.toModel(userDto);
     user.setId(userId);
     userService.update(user);

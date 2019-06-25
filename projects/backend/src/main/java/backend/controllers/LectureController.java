@@ -5,7 +5,6 @@ import static java.util.stream.Collectors.toList;
 import backend.dto.LectureDto;
 import backend.service.LectureService;
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -29,8 +28,10 @@ public class LectureController {
   }
 
   //TODO: Add validation mechanism
+
   /**
    * Add a new lecture.
+   *
    * @param lectureDto Lecture data.
    * @return ResponseEntity
    */
@@ -42,8 +43,10 @@ public class LectureController {
   }
 
   //TODO: Add validation mechanism
+
   /**
    * Update an existing lecture.
+   *
    * @param lectureDto Lecture data.
    * @return ResponseEntity
    */
@@ -57,8 +60,10 @@ public class LectureController {
   }
 
   //TODO: Add validation mechanism
+
   /**
    * Delete a lecture.
+   *
    * @param lectureDto Lecture data.
    * @return ResponseEntity
    */
@@ -71,13 +76,14 @@ public class LectureController {
 
   /**
    * Get a list of all Lectures.
+   *
    * @return ResponseEntity
    */
   @GetMapping
   public ResponseEntity<List<LectureDto>> getLectures() {
     var lectureDtos = lectureService.getLectures().stream()
-                                    .map(LectureDto::toDto)
-                                    .collect(toList());
+        .map(LectureDto::toDto)
+        .collect(toList());
     return ResponseEntity.ok(lectureDtos);
   }
 }

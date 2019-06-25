@@ -13,6 +13,7 @@ public class IndexController {
 
   /**
    * Index.
+   *
    * @return ResponseEntity Helpful API docs.
    */
   @GetMapping("/")

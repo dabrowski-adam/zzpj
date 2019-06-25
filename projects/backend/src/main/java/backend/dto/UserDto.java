@@ -1,17 +1,16 @@
 package backend.dto;
 
-import backend.domain.Subject;
 import backend.domain.User;
+import java.io.Serializable;
+import java.time.LocalDateTime;
 import lombok.Getter;
 import lombok.Setter;
 import org.modelmapper.ModelMapper;
 
-import java.io.Serializable;
-import java.time.LocalDateTime;
-
 @Getter
 @Setter
 public class UserDto implements Serializable {
+
   private String id;
   private String name;
   private String surname;
@@ -22,10 +21,10 @@ public class UserDto implements Serializable {
   private String resetToken;
   private boolean resetPass;
   private LocalDateTime creationDate;
-  private RoleDTO role;
+  private RoleDto role;
   private String mail;
   private byte semester;
-  private CourseDTO course;
+  private CourseDto course;
 
   public static UserDto toDto(User model) {
     ModelMapper modelMapper = new ModelMapper();

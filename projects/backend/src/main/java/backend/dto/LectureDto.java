@@ -1,13 +1,11 @@
 package backend.dto;
 
 import backend.domain.Lecture;
-import lombok.Data;
+import java.io.Serializable;
+import java.time.LocalDateTime;
 import lombok.Getter;
 import lombok.Setter;
 import org.modelmapper.ModelMapper;
-
-import java.io.Serializable;
-import java.time.LocalDateTime;
 
 @Getter
 @Setter

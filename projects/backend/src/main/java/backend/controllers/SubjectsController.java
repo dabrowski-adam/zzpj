@@ -4,7 +4,6 @@ import backend.domain.Subject;
 import backend.dto.SubjectDto;
 import backend.service.SubjectService;
 import java.util.List;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -28,8 +27,10 @@ public class SubjectsController {
   }
 
   // TODO: Add validation mechanism
+
   /**
    * Add subject.
+   *
    * @param subjectDto Subject data.
    * @return ResponseEntity
    */
@@ -41,8 +42,10 @@ public class SubjectsController {
   }
 
   // TODO: Add validation mechanism
+
   /**
    * Update subject.
+   *
    * @param subjectId Subject id.
    * @param subjectDto Subject data.
    * @return ResponseEntity
@@ -57,8 +60,10 @@ public class SubjectsController {
   }
 
   // TODO: Add validation mechanism
+
   /**
    * Delete subject.
+   *
    * @param subjectId Subject id.
    * @return ResponseEntity
    */
