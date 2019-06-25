@@ -25,7 +25,7 @@ public class UserServiceImpl implements UserService {
 
   @Override
   public void update(UserDto userDto) {
-    User user = UserDto.toModel(userDto);
+    User user = UserService.toModel(userDto);
     usersRepository.findById(user.getId()).ifPresent(x -> {
       usersRepository.deleteById(user.getId());
       usersRepository.save(user);
@@ -34,27 +34,27 @@ public class UserServiceImpl implements UserService {
 
   @Override
   public void add(UserDto userDto) {
-    User user = UserDto.toModel(userDto);
+    User user = UserService.toModel(userDto);
     usersRepository.insert(user);
   }
 
   @Override
   public void delete(UserDto userDto) {
-    User user = UserDto.toModel(userDto);
+    User user = UserService.toModel(userDto);
     usersRepository.deleteById(user.getId());
   }
 
   @Override
   public Optional<UserDto> get(String userId) {
     User user = usersRepository.findById(userId).get();
-    UserDto userDto = user != null ? UserDto.toDto(user) : null;
+    UserDto userDto = user != null ? UserService.toDto(user) : null;
     return Optional.of(userDto);
   }
 
   @Override
   public List<UserDto> getUsers() {
     var users = usersRepository.findAll();
-    var userDtos = users.stream().map(UserDto::toDto).collect(toList());
+    var userDtos = users.stream().map(UserService::toDto).collect(toList());
     return userDtos;
   }
 }

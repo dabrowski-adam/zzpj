@@ -7,6 +7,8 @@ import backend.dto.UserDto;
 import backend.service.AttendanceService;
 import backend.service.LectureService;
 import backend.service.UserService;
+import backend.service.impl.AttendanceServiceImpl;
+import backend.service.impl.LectureServiceImpl;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -93,10 +95,10 @@ public class AttendanceController {
           .findByLectureAndStudent(lecture.get(), student.get());
 
       if (!newAttendanceDto.isPresent()) {
-        Attendance attendance = new Attendance(LectureDto.toModel(lecture.get()),
-            UserDto.toModel(student.get()), (byte) 0);
+        Attendance attendance = new Attendance(LectureServiceImpl.toModel(lecture.get()),
+            UserService.toModel(student.get()), (byte) 0);
 
-        attendanceService.add(AttendanceDto.toDto(attendance));
+        attendanceService.add(AttendanceServiceImpl.toDto(attendance));
 
         return ResponseEntity.ok()
             .build();

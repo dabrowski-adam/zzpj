@@ -8,6 +8,7 @@ import backend.repositories.LecturesRepository;
 import backend.service.LectureService;
 import java.util.List;
 import java.util.Optional;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +17,16 @@ public class LectureServiceImpl implements LectureService {
 
   private final LecturesRepository lecturesRepository;
 
+  public static LectureDto toDto(Lecture model) {
+    ModelMapper modelMapper = new ModelMapper();
+    return modelMapper.map(model, LectureDto.class);
+  }
+
+  public static Lecture toModel(LectureDto dto) {
+    ModelMapper modelMapper = new ModelMapper();
+    return modelMapper.map(dto, Lecture.class);
+  }
+  
   @Autowired
   public LectureServiceImpl(LecturesRepository lecturesRepository) {
     this.lecturesRepository = lecturesRepository;
@@ -23,7 +34,7 @@ public class LectureServiceImpl implements LectureService {
 
   @Override
   public void update(LectureDto lectureDto) {
-    Lecture lecture = LectureDto.toModel(lectureDto);
+    Lecture lecture = toModel(lectureDto);
     lecturesRepository.findById(lectureDto.getId())
         .ifPresent(x -> {
           lecturesRepository.deleteById(lecture.getId());
@@ -34,7 +45,7 @@ public class LectureServiceImpl implements LectureService {
   @Override
   public void add(LectureDto lectureDto) {
     //TODO: Add some feedback, how do we know that this had succeded?
-    Lecture lecture = LectureDto.toModel(lectureDto);
+    Lecture lecture = toModel(lectureDto);
     lecturesRepository.insert(lecture);
   }
 
@@ -46,7 +57,7 @@ public class LectureServiceImpl implements LectureService {
   @Override
   public List<LectureDto> getLectures() {
     var lectures = lecturesRepository.findAll();
-    return lectures.stream().map(LectureDto::toDto).collect(toList());
+    return lectures.stream().map(LectureServiceImpl::toDto).collect(toList());
   }
 
   @Override
@@ -55,7 +66,7 @@ public class LectureServiceImpl implements LectureService {
         .ifPresent(x -> {
           x.setOpen(true);
           x.setPin(pin);
-          LectureDto lectureDto = LectureDto.toDto(x);
+          LectureDto lectureDto = toDto(x);
           update(lectureDto);
         });
   }
@@ -66,7 +77,7 @@ public class LectureServiceImpl implements LectureService {
         .ifPresent(x -> {
           x.setOpen(false);
           x.setChecked(true);
-          LectureDto lectureDto = LectureDto.toDto(x);
+          LectureDto lectureDto = toDto(x);
           update(lectureDto);
         });
   }
@@ -74,6 +85,6 @@ public class LectureServiceImpl implements LectureService {
   @Override
   public Optional<LectureDto> get(String lectureId) {
     var lecture = lecturesRepository.findById(lectureId);
-    return lecture.map(LectureDto::toDto);
+    return lecture.map(LectureServiceImpl::toDto);
   }
 }

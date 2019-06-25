@@ -9,7 +9,6 @@ import lombok.Data;
 @AllArgsConstructor
 @Data
 public class EmailDto implements Serializable {
-
   private String to;
   private String subject;
   private String html;
