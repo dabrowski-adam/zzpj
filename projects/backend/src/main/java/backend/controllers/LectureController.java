@@ -3,8 +3,11 @@ package backend.controllers;
 import static java.util.stream.Collectors.toList;
 
 import backend.dto.LectureDto;
+import backend.requests.lecture.AddLectureRequestModel;
+import backend.requests.lecture.UpdateLectureRequestModel;
 import backend.service.LectureService;
 import java.util.List;
+import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -27,39 +30,35 @@ public class LectureController {
     this.lectureService = lectureService;
   }
 
-  //TODO: Add validation mechanism
-
   /**
    * Add a new lecture.
-   *
-   * @param lectureDto Lecture data.
+   * @param request Lecture data.
    * @return ResponseEntity
    */
   @PostMapping("add")
-  public ResponseEntity addLecture(@RequestBody LectureDto lectureDto) {
+  public ResponseEntity addLecture(@Valid @RequestBody AddLectureRequestModel request) {
+    LectureDto lectureDto = LectureDto.parseFromAddLectureRequest(request);
     var lecture = LectureDto.toModel(lectureDto);
     lectureService.add(lecture);
-    return ResponseEntity.ok().build();
+    return ResponseEntity.ok()
+        .build();
   }
-
-  //TODO: Add validation mechanism
 
   /**
    * Update an existing lecture.
-   *
-   * @param lectureDto Lecture data.
+   * @param request Lecture data.
    * @return ResponseEntity
    */
   @PutMapping("update/{lectureId}")
   public ResponseEntity updateLecture(@PathVariable String lectureId,
-      @RequestBody LectureDto lectureDto) {
+  @Valid @RequestBody UpdateLectureRequestModel request) {
+    LectureDto lectureDto = LectureDto.parseFromUpdateLectureRequest(request);
     var lecture = LectureDto.toModel(lectureDto);
     lecture.setId(lectureId);
     lectureService.update(lecture);
-    return ResponseEntity.ok().build();
+    return ResponseEntity.ok()
+        .build();
   }
-
-  //TODO: Add validation mechanism
 
   /**
    * Delete a lecture.
@@ -71,7 +70,8 @@ public class LectureController {
   public ResponseEntity deleteLecture(@RequestBody LectureDto lectureDto) {
     var lecture = LectureDto.toModel(lectureDto);
     lectureService.delete(lecture);
-    return ResponseEntity.ok().build();
+    return ResponseEntity.ok()
+        .build();
   }
 
   /**
@@ -86,4 +86,33 @@ public class LectureController {
         .collect(toList());
     return ResponseEntity.ok(lectureDtos);
   }
+
+  /**
+   * Open the lecture.
+   *
+   * @param lectureId lecture id
+   * @return ResponseEntity
+   */
+  @PutMapping("open/{lectureId}")
+  public ResponseEntity openLecture(@PathVariable String lectureId, @RequestBody long pin) {
+    this.lectureService.open(lectureId, pin);
+
+    return ResponseEntity.ok()
+        .build();
+  }
+
+  /**
+   * Close the lecture.
+   *
+   * @param lectureId lecture id
+   * @return ResponseEntity
+   */
+  @PutMapping("close/{lectureId}")
+  public ResponseEntity closeLecture(@PathVariable String lectureId) {
+    this.lectureService.close(lectureId);
+
+    return ResponseEntity.ok()
+        .build();
+  }
+
 }

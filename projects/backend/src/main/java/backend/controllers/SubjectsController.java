@@ -2,8 +2,11 @@ package backend.controllers;
 
 import backend.domain.Subject;
 import backend.dto.SubjectDto;
+import backend.requests.subject.AddSubjectRequestModel;
+import backend.requests.subject.UpdateSubjectRequestModel;
 import backend.service.SubjectService;
 import java.util.List;
+import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -26,40 +29,35 @@ public class SubjectsController {
     this.subjectService = subjectService;
   }
 
-  // TODO: Add validation mechanism
-
   /**
-   * Add subject.
+   *  Add subject.
    *
-   * @param subjectDto Subject data.
-   * @return ResponseEntity
+   * @param request
+   * @return
    */
   @PostMapping("add")
-  public ResponseEntity addSubject(@RequestBody SubjectDto subjectDto) {
+  public ResponseEntity addSubject(@Valid @RequestBody AddSubjectRequestModel request) {
+    SubjectDto subjectDto = SubjectDto.parseFromAddSubjectRequest(request);
     var subject = SubjectDto.toModel(subjectDto);
     subjectService.add(subject);
     return ResponseEntity.ok().build();
   }
 
-  // TODO: Add validation mechanism
-
   /**
    * Update subject.
    *
-   * @param subjectId Subject id.
-   * @param subjectDto Subject data.
-   * @return ResponseEntity
+   * @param subjectId
+   * @param request
+   * @return
    */
   @PutMapping("update/{subjectId}")
-  public ResponseEntity updateSubject(@PathVariable String subjectId,
-      @RequestBody SubjectDto subjectDto) {
+  public ResponseEntity updateSubject(@PathVariable String subjectId, @Valid @RequestBody UpdateSubjectRequestModel request) {
+    SubjectDto subjectDto = SubjectDto.parseFromUpdateSubjectRequest(request);
     var subject = SubjectDto.toModel(subjectDto);
     subject.setId(subjectId);
     subjectService.update(subject);
     return ResponseEntity.ok().build();
   }
-
-  // TODO: Add validation mechanism
 
   /**
    * Delete subject.
