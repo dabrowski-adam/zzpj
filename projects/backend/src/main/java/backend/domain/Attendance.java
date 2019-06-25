@@ -13,7 +13,7 @@ public class Attendance {
   private Lecture lecture;
   @DBRef
   private User student;
-  //TODO: Extract to separate type e.g Rating
+  //TODO: Extract toModel separate type e.g Rating
   private byte rating;
 
   /**

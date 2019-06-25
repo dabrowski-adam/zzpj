@@ -4,7 +4,7 @@ import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import backend.domain.Subject;
+import backend.dto.SubjectDto;
 import backend.service.SubjectService;
 import java.util.List;
 import org.junit.Test;
@@ -35,7 +35,7 @@ public class SubjectsControllerTest {
 
   @Test
   public void shouldNotReturnSubjectsWhenNotAuthenticated() throws Exception {
-    List<Subject> subjects = List.of(new Subject(), new Subject());
+    List<SubjectDto> subjects = List.of(new SubjectDto(), new SubjectDto());
     when(subjectService.getSubjects()).thenReturn(subjects);
 
     mockMvc.perform(get("/subjects"))

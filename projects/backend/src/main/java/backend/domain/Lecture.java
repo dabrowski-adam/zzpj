@@ -33,7 +33,7 @@ public class Lecture {
    * @param end Lecture end time.
    * @param key Lecture key.
    * @param pin Lecture pin.
-   * @param isOpen Lecture open to students.
+   * @param isOpen Lecture open toModel students.
    * @param isChecked Lecture attendance checked.
    */
   public Lecture(Subject subject, User lecturer, LocalDateTime start, LocalDateTime end,

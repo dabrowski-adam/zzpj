@@ -1,21 +1,33 @@
 package backend.service;
 
 import backend.domain.User;
-
+import backend.dto.UserDto;
 import java.util.List;
-
+import java.util.Optional;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 
 @Service
 public interface UserService {
-  void update(User user);
 
-  void add(User user);
+  static UserDto toDto(User model) {
+    ModelMapper modelMapper = new ModelMapper();
+    return modelMapper.map(model, UserDto.class);
+  }
 
-  void delete(User user);
+  static User toModel(UserDto dto) {
+    ModelMapper modelMapper = new ModelMapper();
+    return modelMapper.map(dto, User.class);
+  }
 
-  User get(String userId);
+  void update(UserDto userDto);
 
-  List<User> getUsers();
+  void add(UserDto userDto);
+
+  void delete(UserDto userDto);
+
+  Optional<UserDto> get(String userId);
+
+  List<UserDto> getUsers();
 }

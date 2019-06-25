@@ -1,26 +1,23 @@
 package backend.controllers;
 
 import backend.domain.Attendance;
-import backend.domain.Lecture;
-import backend.domain.User;
 import backend.dto.AttendanceDto;
+import backend.dto.LectureDto;
+import backend.dto.UserDto;
 import backend.service.AttendanceService;
 import backend.service.LectureService;
 import backend.service.UserService;
-
+import backend.service.impl.AttendanceServiceImpl;
+import backend.service.impl.LectureServiceImpl;
 import java.util.List;
-
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.http.ResponseEntity;
-
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-
 import org.springframework.web.bind.annotation.RequestBody;
-
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -47,8 +44,6 @@ public class AttendanceController {
     this.userService = userService;
   }
 
-  // TODO: Add validation mechanism
-
   /**
    * Delete attendance.
    *
@@ -58,7 +53,7 @@ public class AttendanceController {
   @DeleteMapping("delete/{attendanceId}")
   public ResponseEntity deleteAttendance(@PathVariable String attendanceId) {
     var attendance = attendanceService.get(attendanceId);
-    attendanceService.delete(attendance);
+    attendance.ifPresent(attendanceService::delete);
     return ResponseEntity.ok()
         .build();
   }
@@ -76,7 +71,7 @@ public class AttendanceController {
   }
 
   @GetMapping
-  public ResponseEntity<List<Attendance>> getAttendances() {
+  public ResponseEntity<List<AttendanceDto>> getAttendances() {
     var attendances = attendanceService.getAttendances();
     return ResponseEntity.ok(attendances);
   }
@@ -91,16 +86,19 @@ public class AttendanceController {
   @PostMapping("check/{lectureId}")
   public ResponseEntity checkAttendance(@PathVariable String lectureId,
       @RequestBody AttendanceDto attendanceDto) {
-    Lecture lecture = lectureService.get(lectureId);
-    User student = userService.get(attendanceDto.getStudentId());
+    Optional<LectureDto> lecture = lectureService.get(lectureId);
+    Optional<UserDto> student = userService.get(attendanceDto.getStudentId());
 
+    //TODO: Reractor this code
     if (lecture != null && student != null) {
-      Attendance attendance = attendanceService.findByLectureAndStudent(lecture, student);
+      Optional<AttendanceDto> newAttendanceDto = attendanceService
+          .findByLectureAndStudent(lecture.get(), student.get());
 
-      if (attendance == null) {
-        attendance = new Attendance(lecture, student, (byte) 0);
+      if (!newAttendanceDto.isPresent()) {
+        Attendance attendance = new Attendance(LectureServiceImpl.toModel(lecture.get()),
+            UserService.toModel(student.get()), (byte) 0);
 
-        attendanceService.add(attendance);
+        attendanceService.add(AttendanceServiceImpl.toDto(attendance));
 
         return ResponseEntity.ok()
             .build();

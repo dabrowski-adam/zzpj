@@ -4,9 +4,7 @@ import backend.dto.EmailDto;
 import backend.http.HttpService;
 import backend.http.RequestMethod;
 import backend.service.EmailService;
-
 import java.io.IOException;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

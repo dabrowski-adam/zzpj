@@ -1,12 +1,14 @@
 package backend.dto;
 
-import backend.domain.Course;
-import backend.domain.Role;
-
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
 public class UserDto implements Serializable {
+
   private String id;
   private String name;
   private String surname;
@@ -17,8 +19,9 @@ public class UserDto implements Serializable {
   private String resetToken;
   private boolean resetPass;
   private LocalDateTime creationDate;
-  private Role role;
+  private RoleDto role;
   private String mail;
   private byte semester;
-  private Course course;
+  private CourseDto course;
+
 }

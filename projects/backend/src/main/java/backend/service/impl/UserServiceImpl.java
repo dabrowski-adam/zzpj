@@ -1,11 +1,13 @@
 package backend.service.impl;
 
+import static java.util.stream.Collectors.toList;
+
 import backend.domain.User;
+import backend.dto.UserDto;
 import backend.repositories.UsersRepository;
 import backend.service.UserService;
-
 import java.util.List;
-
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,7 +24,8 @@ public class UserServiceImpl implements UserService {
 
 
   @Override
-  public void update(User user) {
+  public void update(UserDto userDto) {
+    User user = UserService.toModel(userDto);
     usersRepository.findById(user.getId()).ifPresent(x -> {
       usersRepository.deleteById(user.getId());
       usersRepository.save(user);
@@ -30,22 +33,28 @@ public class UserServiceImpl implements UserService {
   }
 
   @Override
-  public void add(User user) {
+  public void add(UserDto userDto) {
+    User user = UserService.toModel(userDto);
     usersRepository.insert(user);
   }
 
   @Override
-  public void delete(User user) {
+  public void delete(UserDto userDto) {
+    User user = UserService.toModel(userDto);
     usersRepository.deleteById(user.getId());
   }
 
   @Override
-  public User get(String userId) {
-    return usersRepository.findById(userId).get();
+  public Optional<UserDto> get(String userId) {
+    User user = usersRepository.findById(userId).get();
+    UserDto userDto = user != null ? UserService.toDto(user) : null;
+    return Optional.of(userDto);
   }
 
   @Override
-  public List<User> getUsers() {
-    return usersRepository.findAll();
+  public List<UserDto> getUsers() {
+    var users = usersRepository.findAll();
+    var userDtos = users.stream().map(UserService::toDto).collect(toList());
+    return userDtos;
   }
 }
