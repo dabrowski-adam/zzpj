@@ -4,6 +4,7 @@ import backend.domain.Attendance;
 import backend.domain.Lecture;
 import backend.domain.User;
 import backend.dto.AttendanceDto;
+import backend.dto.LectureDto;
 import backend.dto.UserDto;
 import backend.service.AttendanceService;
 import backend.service.LectureService;
@@ -93,15 +94,16 @@ public class AttendanceController {
   @PostMapping("check/{lectureId}")
   public ResponseEntity checkAttendance(@PathVariable String lectureId,
       @RequestBody AttendanceDto attendanceDto) {
-    Lecture lecture = lectureService.get(lectureId);
+    Optional<LectureDto> lecture = lectureService.get(lectureId);
     Optional<UserDto> student = userService.get(attendanceDto.getStudentId());
 
     if (lecture != null && student != null) {
+      Lecture lectureModel  = LectureDto.toModel(lecture.get());
       User studentModel = UserDto.toModel(student.get());
-      Attendance attendance = attendanceService.findByLectureAndStudent(lecture, studentModel);
+      Attendance attendance = attendanceService.findByLectureAndStudent(lectureModel, studentModel);
 
       if (attendance == null) {
-        attendance = new Attendance(lecture, studentModel, (byte) 0);
+        attendance = new Attendance(lectureModel, studentModel, (byte) 0);
 
         attendanceService.add(attendance);
 

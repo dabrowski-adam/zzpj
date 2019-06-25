@@ -38,8 +38,7 @@ public class LectureController {
   @PostMapping("add")
   public ResponseEntity addLecture(@Valid @RequestBody AddLectureRequestModel request) {
     LectureDto lectureDto = LectureDto.parseFromAddLectureRequest(request);
-    var lecture = LectureDto.toModel(lectureDto);
-    lectureService.add(lecture);
+    lectureService.add(lectureDto);
     return ResponseEntity.ok()
         .build();
   }
@@ -53,9 +52,8 @@ public class LectureController {
   public ResponseEntity updateLecture(@PathVariable String lectureId,
   @Valid @RequestBody UpdateLectureRequestModel request) {
     LectureDto lectureDto = LectureDto.parseFromUpdateLectureRequest(request);
-    var lecture = LectureDto.toModel(lectureDto);
-    lecture.setId(lectureId);
-    lectureService.update(lecture);
+    lectureDto.setId(lectureId);
+    lectureService.update(lectureDto);
     return ResponseEntity.ok()
         .build();
   }
@@ -68,8 +66,7 @@ public class LectureController {
    */
   @DeleteMapping("delete")
   public ResponseEntity deleteLecture(@RequestBody LectureDto lectureDto) {
-    var lecture = LectureDto.toModel(lectureDto);
-    lectureService.delete(lecture);
+    lectureService.delete(lectureDto);
     return ResponseEntity.ok()
         .build();
   }
@@ -81,9 +78,7 @@ public class LectureController {
    */
   @GetMapping
   public ResponseEntity<List<LectureDto>> getLectures() {
-    var lectureDtos = lectureService.getLectures().stream()
-        .map(LectureDto::toDto)
-        .collect(toList());
+    var lectureDtos = lectureService.getLectures();
     return ResponseEntity.ok(lectureDtos);
   }
 

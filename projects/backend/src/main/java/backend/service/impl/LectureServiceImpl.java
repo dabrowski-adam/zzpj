@@ -1,11 +1,15 @@
 package backend.service.impl;
 
+import static java.util.stream.Collectors.toList;
+
 import backend.domain.Lecture;
+import backend.dto.LectureDto;
 import backend.repositories.LecturesRepository;
 import backend.service.LectureService;
 
 import java.util.List;
 
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,8 +24,9 @@ public class LectureServiceImpl implements LectureService {
   }
 
   @Override
-  public void update(Lecture lecture) {
-    lecturesRepository.findById(lecture.getId())
+  public void update(LectureDto lectureDto) {
+    Lecture lecture = LectureDto.toModel(lectureDto);
+    lecturesRepository.findById(lectureDto.getId())
         .ifPresent(x -> {
           lecturesRepository.deleteById(lecture.getId());
           lecturesRepository.save(lecture);
@@ -29,19 +34,21 @@ public class LectureServiceImpl implements LectureService {
   }
 
   @Override
-  public void add(Lecture lecture) {
+  public void add(LectureDto lectureDto) {
     //TODO: Add some feedback, how do we know that this had succeded?
+    Lecture lecture = LectureDto.toModel(lectureDto);
     lecturesRepository.insert(lecture);
   }
 
   @Override
-  public void delete(Lecture lecture) {
-    lecturesRepository.deleteById(lecture.getId());
+  public void delete(LectureDto lectureDto) {
+    lecturesRepository.deleteById(lectureDto.getId());
   }
 
   @Override
-  public List<Lecture> getLectures() {
-    return lecturesRepository.findAll();
+  public List<LectureDto> getLectures() {
+    var lectures = lecturesRepository.findAll();
+    return lectures.stream().map(LectureDto::toDto).collect(toList());
   }
 
   @Override
@@ -50,7 +57,8 @@ public class LectureServiceImpl implements LectureService {
         .ifPresent(x -> {
           x.setOpen(true);
           x.setPin(pin);
-          update(x);
+          LectureDto lectureDto = LectureDto.toDto(x);
+          update(lectureDto);
         });
   }
 
@@ -60,13 +68,14 @@ public class LectureServiceImpl implements LectureService {
         .ifPresent(x -> {
           x.setOpen(false);
           x.setChecked(true);
-          update(x);
+          LectureDto lectureDto = LectureDto.toDto(x);
+          update(lectureDto);
         });
   }
 
   @Override
-  public Lecture get(String lectureId) {
-    return lecturesRepository.findById(lectureId)
-        .orElse(null);
+  public Optional<LectureDto> get(String lectureId) {
+    var lecture = lecturesRepository.findById(lectureId);
+    return lecture.map(LectureDto::toDto);
   }
 }
