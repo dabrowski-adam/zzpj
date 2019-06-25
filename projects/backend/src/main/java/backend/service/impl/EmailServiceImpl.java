@@ -6,13 +6,17 @@ import backend.http.RequestMethod;
 import backend.service.EmailService;
 import java.io.IOException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 @Service
 public class EmailServiceImpl implements EmailService {
 
-  private final String apiKey = "7656bcd3bed13b053dcf1903f1c4265d423b5";
-  private final String apiUrl = "https://zzpj2019-7029.restdb.io";
+  @Value("${api_key}")
+  private String apiKey;
+
+  @Value("${email}")
+  private String apiUrl;
 
   private final HttpService httpService;
 
