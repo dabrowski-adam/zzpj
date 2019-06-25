@@ -1,9 +1,13 @@
 package backend.service.impl;
 
+import static java.util.stream.Collectors.toList;
+
 import backend.domain.Subject;
+import backend.dto.SubjectDto;
 import backend.repositories.SubjectsRepository;
 import backend.service.SubjectService;
 import java.util.List;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,7 +22,8 @@ public class SimpleSubjectService implements SubjectService {
   }
 
   @Override
-  public void update(Subject subject) {
+  public void update(SubjectDto subjectDto) {
+    Subject subject = SubjectDto.toModel(subjectDto);
     subjectsRepository.findById(subject.getId()).ifPresent(existingSubject -> {
       existingSubject.setTopic(subject.getTopic());
       existingSubject.setKey(subject.getKey());
@@ -27,22 +32,27 @@ public class SimpleSubjectService implements SubjectService {
   }
 
   @Override
-  public void add(Subject subject) {
+  public void add(SubjectDto subjectDto) {
+    Subject subject = SubjectDto.toModel(subjectDto);
     subjectsRepository.insert(subject);
   }
 
   @Override
-  public void delete(Subject subject) {
+  public void delete(SubjectDto subjectDto) {
+    Subject subject = SubjectDto.toModel(subjectDto);
     subjectsRepository.deleteById(subject.getId());
   }
 
   @Override
-  public Subject get(String subjectId) {
-    return subjectsRepository.findById(subjectId).orElse(null);
+  public Optional<SubjectDto> get(String subjectId) {
+    Optional<Subject> subject = subjectsRepository.findById(subjectId);
+    return subject.map(SubjectDto::toDto);
   }
 
   @Override
-  public List<Subject> getSubjects() {
-    return subjectsRepository.findAll();
+  public List<SubjectDto> getSubjects() {
+    var subjects = subjectsRepository.findAll();
+    var subjectsDtos = subjects.stream().map(SubjectDto::toDto).collect(toList());
+    return subjectsDtos;
   }
 }

@@ -13,6 +13,7 @@ import org.modelmapper.ModelMapper;
 @Setter
 public class SubjectDto implements Serializable {
 
+  private String id;
   private String topic;
   private String key;
 

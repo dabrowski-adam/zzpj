@@ -1,17 +1,18 @@
 package backend.service;
 
-import backend.domain.Subject;
+import backend.dto.SubjectDto;
 import java.util.List;
+import java.util.Optional;
 
 public interface SubjectService {
 
-  void update(Subject subject);
+  void update(SubjectDto subjectDto);
 
-  void add(Subject subject);
+  void add(SubjectDto subjectDto);
 
-  void delete(Subject subject);
+  void delete(SubjectDto subjectDto);
 
-  Subject get(String subjectId);
+  Optional<SubjectDto> get(String subjectId);
 
-  List<Subject> getSubjects();
+  List<SubjectDto> getSubjects();
 }
