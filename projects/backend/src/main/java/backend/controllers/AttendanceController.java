@@ -61,7 +61,7 @@ public class AttendanceController {
   @DeleteMapping("delete/{attendanceId}")
   public ResponseEntity deleteAttendance(@PathVariable String attendanceId) {
     var attendance = attendanceService.get(attendanceId);
-    attendanceService.delete(attendance);
+    attendance.ifPresent(attendanceService::delete);
     return ResponseEntity.ok()
         .build();
   }
@@ -79,7 +79,7 @@ public class AttendanceController {
   }
 
   @GetMapping
-  public ResponseEntity<List<Attendance>> getAttendances() {
+  public ResponseEntity<List<AttendanceDto>> getAttendances() {
     var attendances = attendanceService.getAttendances();
     return ResponseEntity.ok(attendances);
   }
@@ -97,15 +97,14 @@ public class AttendanceController {
     Optional<LectureDto> lecture = lectureService.get(lectureId);
     Optional<UserDto> student = userService.get(attendanceDto.getStudentId());
 
+    //TODO: Reractor this code
     if (lecture != null && student != null) {
-      Lecture lectureModel  = LectureDto.toModel(lecture.get());
-      User studentModel = UserDto.toModel(student.get());
-      Attendance attendance = attendanceService.findByLectureAndStudent(lectureModel, studentModel);
+      Optional<AttendanceDto> newAttendanceDto = attendanceService.findByLectureAndStudent(lecture.get(), student.get());
 
-      if (attendance == null) {
-        attendance = new Attendance(lectureModel, studentModel, (byte) 0);
+      if (!newAttendanceDto.isPresent()) {
+        Attendance attendance = new Attendance(LectureDto.toModel(lecture.get()), UserDto.toModel(student.get()), (byte) 0);
 
-        attendanceService.add(attendance);
+        attendanceService.add(AttendanceDto.toDto(attendance));
 
         return ResponseEntity.ok()
             .build();
