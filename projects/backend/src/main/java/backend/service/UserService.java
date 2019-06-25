@@ -1,21 +1,20 @@
 package backend.service;
 
-import backend.domain.User;
-
+import backend.dto.UserDto;
 import java.util.List;
-
+import java.util.Optional;
 import org.springframework.stereotype.Service;
 
 
 @Service
 public interface UserService {
-  void update(User user);
+  void update(UserDto userDto);
 
-  void add(User user);
+  void add(UserDto userDto);
 
-  void delete(User user);
+  void delete(UserDto userDto);
 
-  User get(String userId);
+  Optional<UserDto> get(String userId);
 
-  List<User> getUsers();
+  List<UserDto> getUsers();
 }

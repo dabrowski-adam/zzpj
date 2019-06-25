@@ -40,9 +40,8 @@ public class UsersController {
    */
   @PostMapping("signup")
   public ResponseEntity signup(@RequestBody UserDto userDto) {
-    var user = UserDto.toModel(userDto);
-    user.setPassword(passwordEncoder.encode(user.getPassword()));
-    userService.add(user);
+    userDto.setPassword(passwordEncoder.encode(userDto.getPassword()));
+    userService.add(userDto);
     return ResponseEntity.ok().build();
   }
 
@@ -55,15 +54,13 @@ public class UsersController {
   @PutMapping("edit/{userId}")
   public ResponseEntity edit(@PathVariable String userId,
       @RequestBody UserDto userDto) {
-    var user = UserDto.toModel(userDto);
-    user.setId(userId);
-    userService.update(user);
+    userDto.setId(userId);
+    userService.update(userDto);
     return ResponseEntity.ok().build();
   }
 
   @PostMapping("forgot")
   public ResponseEntity forgot() {
-    // TODO forgot pass logic
     return ResponseEntity.badRequest().build();
   }
 }

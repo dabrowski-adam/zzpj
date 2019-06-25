@@ -4,12 +4,14 @@ import backend.domain.Attendance;
 import backend.domain.Lecture;
 import backend.domain.User;
 import backend.dto.AttendanceDto;
+import backend.dto.UserDto;
 import backend.service.AttendanceService;
 import backend.service.LectureService;
 import backend.service.UserService;
 
 import java.util.List;
 
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.http.ResponseEntity;
@@ -92,13 +94,14 @@ public class AttendanceController {
   public ResponseEntity checkAttendance(@PathVariable String lectureId,
       @RequestBody AttendanceDto attendanceDto) {
     Lecture lecture = lectureService.get(lectureId);
-    User student = userService.get(attendanceDto.getStudentId());
+    Optional<UserDto> student = userService.get(attendanceDto.getStudentId());
 
     if (lecture != null && student != null) {
-      Attendance attendance = attendanceService.findByLectureAndStudent(lecture, student);
+      User studentModel = UserDto.toModel(student.get());
+      Attendance attendance = attendanceService.findByLectureAndStudent(lecture, studentModel);
 
       if (attendance == null) {
-        attendance = new Attendance(lecture, student, (byte) 0);
+        attendance = new Attendance(lecture, studentModel, (byte) 0);
 
         attendanceService.add(attendance);
 
