@@ -52,6 +52,9 @@ dependencies {
     compile("io.springfox:springfox-swagger2:2.9.2")
     compile("io.springfox:springfox-swagger-ui:2.9.2")
 
+    // https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind
+    compile("com.fasterxml.jackson.core:jackson-databind:2.9.9")
+
     checkstyleConfig("com.puppycrawl.tools:checkstyle:8.21") {
         isTransitive = false
     }
