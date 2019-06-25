@@ -1,29 +1,21 @@
 package backend.controllers;
 
 import backend.domain.Attendance;
-import backend.domain.Lecture;
-import backend.domain.User;
 import backend.dto.AttendanceDto;
 import backend.dto.LectureDto;
 import backend.dto.UserDto;
 import backend.service.AttendanceService;
 import backend.service.LectureService;
 import backend.service.UserService;
-
 import java.util.List;
-
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.http.ResponseEntity;
-
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-
 import org.springframework.web.bind.annotation.RequestBody;
-
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -49,8 +41,6 @@ public class AttendanceController {
     this.lectureService = lectureService;
     this.userService = userService;
   }
-
-  // TODO: Add validation mechanism
 
   /**
    * Delete attendance.
@@ -99,10 +89,12 @@ public class AttendanceController {
 
     //TODO: Reractor this code
     if (lecture != null && student != null) {
-      Optional<AttendanceDto> newAttendanceDto = attendanceService.findByLectureAndStudent(lecture.get(), student.get());
+      Optional<AttendanceDto> newAttendanceDto = attendanceService
+          .findByLectureAndStudent(lecture.get(), student.get());
 
       if (!newAttendanceDto.isPresent()) {
-        Attendance attendance = new Attendance(LectureDto.toModel(lecture.get()), UserDto.toModel(student.get()), (byte) 0);
+        Attendance attendance = new Attendance(LectureDto.toModel(lecture.get()),
+            UserDto.toModel(student.get()), (byte) 0);
 
         attendanceService.add(AttendanceDto.toDto(attendance));
 

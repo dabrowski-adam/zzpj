@@ -1,6 +1,5 @@
 package backend.controllers;
 
-import backend.domain.Subject;
 import backend.dto.SubjectDto;
 import backend.requests.subject.AddSubjectRequestModel;
 import backend.requests.subject.UpdateSubjectRequestModel;
@@ -31,10 +30,7 @@ public class SubjectsController {
   }
 
   /**
-   *  Add subject.
-   *
-   * @param request
-   * @return
+   * Add subject.
    */
   @PostMapping("add")
   public ResponseEntity addSubject(@Valid @RequestBody AddSubjectRequestModel request) {
@@ -45,13 +41,10 @@ public class SubjectsController {
 
   /**
    * Update subject.
-   *
-   * @param subjectId
-   * @param request
-   * @return
    */
   @PutMapping("update/{subjectId}")
-  public ResponseEntity updateSubject(@PathVariable String subjectId, @Valid @RequestBody UpdateSubjectRequestModel request) {
+  public ResponseEntity updateSubject(@PathVariable String subjectId,
+      @Valid @RequestBody UpdateSubjectRequestModel request) {
     SubjectDto subjectDto = SubjectDto.parseFromUpdateSubjectRequest(request);
     subjectDto.setId(subjectId);
     subjectService.update(subjectDto);

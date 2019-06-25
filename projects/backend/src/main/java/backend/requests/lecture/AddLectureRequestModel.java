@@ -2,7 +2,6 @@ package backend.requests.lecture;
 
 import java.time.LocalDateTime;
 import javax.validation.constraints.NotNull;
-
 import lombok.Data;
 
 @Data

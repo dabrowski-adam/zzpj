@@ -1,9 +1,7 @@
 package backend.dto;
 
 import backend.domain.Attendance;
-import backend.domain.Course;
 import java.io.Serializable;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.modelmapper.ModelMapper;

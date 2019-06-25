@@ -1,10 +1,7 @@
 package backend.service;
 
-import backend.domain.Lecture;
-
 import backend.dto.LectureDto;
 import java.util.List;
-
 import java.util.Optional;
 import org.springframework.stereotype.Service;
 

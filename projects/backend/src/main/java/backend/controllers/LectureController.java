@@ -1,7 +1,5 @@
 package backend.controllers;
 
-import static java.util.stream.Collectors.toList;
-
 import backend.dto.LectureDto;
 import backend.requests.lecture.AddLectureRequestModel;
 import backend.requests.lecture.UpdateLectureRequestModel;
@@ -32,6 +30,7 @@ public class LectureController {
 
   /**
    * Add a new lecture.
+   *
    * @param request Lecture data.
    * @return ResponseEntity
    */
@@ -45,12 +44,13 @@ public class LectureController {
 
   /**
    * Update an existing lecture.
+   *
    * @param request Lecture data.
    * @return ResponseEntity
    */
   @PutMapping("update/{lectureId}")
   public ResponseEntity updateLecture(@PathVariable String lectureId,
-  @Valid @RequestBody UpdateLectureRequestModel request) {
+      @Valid @RequestBody UpdateLectureRequestModel request) {
     LectureDto lectureDto = LectureDto.parseFromUpdateLectureRequest(request);
     lectureDto.setId(lectureId);
     lectureService.update(lectureDto);

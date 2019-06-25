@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public interface UserService {
+
   void update(UserDto userDto);
 
   void add(UserDto userDto);

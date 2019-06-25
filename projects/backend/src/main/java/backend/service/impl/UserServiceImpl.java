@@ -3,13 +3,10 @@ package backend.service.impl;
 import static java.util.stream.Collectors.toList;
 
 import backend.domain.User;
-import backend.dto.LectureDto;
 import backend.dto.UserDto;
 import backend.repositories.UsersRepository;
 import backend.service.UserService;
-
 import java.util.List;
-
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

@@ -2,7 +2,6 @@ package backend.http;
 
 import java.io.IOException;
 import java.net.ProtocolException;
-
 import org.springframework.stereotype.Service;
 
 @Service

@@ -6,9 +6,7 @@ import backend.domain.Lecture;
 import backend.dto.LectureDto;
 import backend.repositories.LecturesRepository;
 import backend.service.LectureService;
-
 import java.util.List;
-
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
